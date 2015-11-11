@@ -1,0 +1,24 @@
+
+.rightText {
+	text-align: right;
+}
+
+.leftText {
+	text-align: left;
+}
+
+.rightDiv {
+	float: right;
+}
+
+.centreDiv{
+	margin: auto;
+	text-align: center;
+}
+
+.no-margin {
+	margin: 0%;
+}
+
+
+
