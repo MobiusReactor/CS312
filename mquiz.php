@@ -3,8 +3,8 @@
 
 <div class="container">
 	<div class="jumbotron">
-		<h1>Quiz list!</h1>
-		<p>Here is a list of all the quizzes</p>
+		<h1>My Quizzes!</h1>
+		<p>Placeholder for list of your own quizzes and ability to edit them.</p>
 	</div>
 </div>
 
