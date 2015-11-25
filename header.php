@@ -4,14 +4,19 @@
 	<head>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
-
-		<!-- Latest compiled and minified CSS -->
-		<link rel='stylesheet' href='css/bootstrap.min.css'>
-
+	
+		<!-- Latest compiled JQuery -->
+		<script src='js/jquery-1.11.3.min.js'></script>
 
 		<!-- Latest compiled JavaScript -->
-		<script src='js/bootstrap.min.js'></script>
-		<script src='css/styles.css'></script>
+		<script src='js/bootstrap.js'></script>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel='stylesheet' href='css/bootstrap.css'>
+
+
+		
+		<link rel='stylesheet' href='css/styles.css'></script>
 		
 	</head>
 
@@ -33,7 +38,8 @@
 				
 				<div>
 					<ul class="nav navbar-nav">
-						<li><a href="index.php">All Quizes</a></li>
+						<li><a href="index.php">Home Page</a></li>
+						<li><a href="aquiz.php">All Quizes</a></li>
 						<li><a href="mquiz.php">My Quizes</a></li>
 						<li><a href="contact.php">Contact Us</a></li>
 					</ul>

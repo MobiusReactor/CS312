@@ -4,7 +4,21 @@
 	echo "Connected to MySQL<br/>";
 	mysql_select_db("isb13142") or die(mysql_error());
 	echo "Connected to Database<br/>";
+	
+	// Need to kill tables first to avoid conflicts
+	$killUsers = "DROP TABLE USERS";
+	mysql_query($killUsers);
 
+	$killQuests = "DROP TABLE QUESTS";
+	mysql_query($killQuests);
+	
+	$killQuestions = "DROP TABLE QUESTIONS";
+	mysql_query($killQuestions);
+	
+
+
+
+	
 	//create table for USERS
 	$createUsers = "CREATE TABLE USERS(
 				userID INT NOT NULL AUTO_INCREMENT,
@@ -31,6 +45,7 @@
 	$createQuestions = "CREATE TABLE QUESTIONS(
 				questionID INT NOT NULL AUTO_INCREMENT,
 				questionnaireID INT,
+				questionType VARCHAR(100) NOT NULL,
 				question VARCHAR(100) NOT NULL,
 				PRIMARY KEY(questionID),
 				FOREIGN KEY(questionnaireID) REFERENCES QUESTS(questID)  
