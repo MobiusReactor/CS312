@@ -35,6 +35,7 @@
 		}
 		
 		newOpt.innerHTML = newOpt.innerHTML + '<hr>';
+
 		ni.appendChild(newOpt);
 	}
 </script>
