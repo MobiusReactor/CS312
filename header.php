@@ -1,6 +1,12 @@
 <?php
 	session_start();
-	if(($_GET['log'] == "in") && isset($_POST['email'])) {
+	if($_GET['log'] == "out") {
+		session_unset();
+		unset($_COOKIE['email']);
+		unset($_COOKIE['password']);
+		setcookie("email", "", time() - 3600, "/");
+		setcookie("password", "", time() - 3600, "/");
+	} else if(($_GET['log'] == "in") && isset($_POST['email'])) {
 		$login = true;
 		$email = $_POST['email'];
 		$password = $_POST['password'];
@@ -8,10 +14,6 @@
 		$login = true;
 		$email = $_COOKIE['email'];
 		$password = $_COOKIE['password'];
-	} else if($_GET['log'] == "out") {
-		session_unset();
-		setcookie("email", "", time() - 3600);
-		setcookie("password", "", time() - 3600);
 	}
 
 	if($login) {
