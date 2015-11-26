@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="jumbotron">
 		<h1>Sign up here!</h1>
-		<form role="form" method="post" action="../CS312/submitreg.php">
+		<form role="form" method="post" action="submitreg.php">
 			<div class="form-group">
 				<label for="email">Email address:</label>
 				<input name="reg_email" type="email" class="form-control" id="email">

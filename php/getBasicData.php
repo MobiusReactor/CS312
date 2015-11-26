@@ -2,15 +2,15 @@
 
 function getBasicData($select, $from, $where = NULL){
 	//Connect to our DB
-	$_sname = "devweb2015.cis.strath.ac.uk";
+	/*$_sname = "devweb2015.cis.strath.ac.uk";
 	$_uname = "isb13142";
-	$_pword = "eiXaim9ee8mi";
-	//$servername = "localhost";
-	//$username = "root";
-	//$password = "12345";
-	//$database = "SoEDB";
-	mysql_connect($servername, $username, $password);
-	mysql_select_db("SoEDB") or die(mysql_error());
+	$_pword = "eiXaim9ee8mi";*/
+	$_sname = "localhost";
+	$_uname = "root";
+	$_pword = "12345";
+	$_db = "SoEDB";
+	$conn = mysqli_connect($_sname, $_uname, $_pword);
+	mysqli_select_db($conn, $_db) or die(mysqli_error());
 	
 	
 	$sqlSelect = "SELECT ";
@@ -21,7 +21,7 @@ function getBasicData($select, $from, $where = NULL){
 	
 	$sqlSelect = rtrim($sqlSelect, ",");
 	$sqlSelect .= " FROM ".$from;
-	if($where != Null){
+	if($where != NULL){
 		$sqlSelect .= " WHERE ";
 		foreach($where as $key => $value){
 			$sqlSelect .= ($key." = '".$value."' AND ");
@@ -29,7 +29,7 @@ function getBasicData($select, $from, $where = NULL){
 		$sqlSelect = substr($sqlSelect, 0, -4);
 	}
 	//echo "<strong>".$sqlSelect."</strong>";
-	$result = mysql_query($sqlSelect) or die(mysql_error());;
+	$result = mysqli_query($conn, $sqlSelect) or die(mysqli_error($conn));
 	return $result;
 };
 

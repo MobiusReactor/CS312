@@ -1,3 +1,50 @@
+<?php
+	session_start();
+	if(($_GET['log'] == "in") && isset($_POST['email'])) {
+		$login = true;
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+	} else if(isset($_COOKIE['email'])) {
+		$login = true;
+		$email = $_COOKIE['email'];
+		$password = $_COOKIE['password'];
+	} else if($_GET['log'] == "out") {
+		session_unset();
+		setcookie("email", "", time() - 3600);
+		setcookie("password", "", time() - 3600);
+	}
+
+	if($login) {
+		/*user has tried to authenticate*/
+		include "php/getBasicData.php";
+		$result = getBasicData(
+				array("email", "password"),
+				"USERS",
+				array(
+					"email"=>$email,
+					"password"=>$password
+				)
+			);
+		if (mysqli_num_rows($result) == 1) {
+			/*user is authenticated*/
+			$row = mysqli_fetch_assoc($result);
+			$_SESSION['isLogged'] = true;
+			$_SESSION['email'] = $email;
+			if(isset($_POST['rememberMe'])) {
+				$cookieEmailN = "email";
+				$cookieEmailV = $_POST['email'];
+				$cookiePwdN = "password";
+				$cookiePwdV = $_POST['password'];
+				setcookie($cookieEmailN, $cookieEmailV, time() + (86400 * 30), "/");
+				setcookie($cookiePwdN, $cookiePwdV, time() + (86400 * 30), "/");
+			}
+		} else {
+			/*user is not authenticated*/
+			header("refresh:0.1;url=login.php?error=incorrectAuth");
+		}
+	}
+	
+?>
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -16,7 +63,7 @@
 
 
 		
-		<link rel='stylesheet' href='css/styles.css'></script>
+		<link rel='stylesheet' href='css/styles.css'>
 		
 	</head>
 
@@ -45,21 +92,21 @@
 					</ul>
 			
 					<?php
-						if($_GET['submitted'] == true && isset($_POST['email'])) {
-							include "php/getBasicData.php";
-							$result = getBasicData(
-									array("username", "password"),
-									"USERS",
-									array("username"=>$_POST['email'])
-							);
-							if (mysqli_num_rows($result) == 1) {
-								// user is authenticated
-								$row = mysqli_fetch_assoc($result);
-								
-							} else {
-
-							}
-						} else {						
+						if($_SESSION['isLogged']) {
+							/*user is logged*/
+							$email = $_SESSION['email'];
+							echo " <div class='dropdown rightDiv'>
+  								<button class='btn btn-primary dropdown-toggle' type='button'
+									 data-toggle='dropdown'>
+										$email
+								<span class='caret'></span></button>
+								<ul class='dropdown-menu'>
+									<li><a href='index.php?log=out'>Logout</a></li>
+								</ul>
+							</div>";
+						
+						} else {
+							/*user is not logged*/						
 							echo "<ul class='nav navbar-nav navbar-right'>
 								<li><a href='signup.php'>
 									<span class='glyphicon glyphicon-user'></span> Sign Up

@@ -16,14 +16,18 @@
 				die();
 			}
 			
-			$_uname = "isb13142";
-			$_pword = "eiXaim9ee8mi";
-
-			mysql_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
-			mysql_select_db($_uname) or die(mysql_error());
+			//$_uname = "isb13142";
+			//$_pword = "eiXaim9ee8mi";
+			$servername = "localhost";
+			$username = "root";
+			$password = "12345";
+			//mysql_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
+			mysql_connect($servername, $username, $password);
+			//mysql_select_db($_uname) or die(mysql_error());
+			mysql_select_db("SoEDB") or die(mysql_error());
 
 			
-			$query = sprintf("INSERT INTO USERS (username, password) VALUES('%s', '%s') ",
+			$query = sprintf("INSERT INTO USERS (email, password) VALUES('%s', '%s') ",
 				mysql_real_escape_string($_POST["reg_email"]),
 				mysql_real_escape_string($_POST["reg_pwordc"])
 			) or die(mysql_error());

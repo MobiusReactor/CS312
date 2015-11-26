@@ -1,19 +1,30 @@
 <?php
 
-	mysql_connect("devweb2015.cis.strath.ac.uk", "isb13142", "eiXaim9ee8mi"); //replace function arguments
+	//Connect to our DB
+	/*$_sname = "devweb2015.cis.strath.ac.uk";
+	$_uname = "isb13142";
+	$_pword = "eiXaim9ee8mi";*/
+	$_sname = "localhost";
+	$_uname = "root";
+	$_pword = "12345";
+	$_db = "SoEDB";
+	$conn = mysqli_connect($_sname, $_uname, $_pword);
+	mysqli_select_db($conn, $_db) or die(mysqli_error());
+
+	
 	echo "Connected to MySQL<br/>";
-	mysql_select_db("isb13142") or die(mysql_error());
 	echo "Connected to Database<br/>";
 	
 	// Need to kill tables first to avoid conflicts
 	$killUsers = "DROP TABLE USERS";
-	mysql_query($killUsers);
+	mysqli_query($conn, $killUsers);
+	
 
 	$killQuests = "DROP TABLE QUESTS";
-	mysql_query($killQuests);
+	mysqli_query($conn, $killQuests);
 	
 	$killQuestions = "DROP TABLE QUESTIONS";
-	mysql_query($killQuestions);
+	mysqli_query($conn, $killQuestions);
 	
 
 
@@ -23,11 +34,11 @@
 	$createUsers = "CREATE TABLE USERS(
 				userID INT NOT NULL AUTO_INCREMENT,
 				PRIMARY KEY(userID),
-				email VARCHAR(30) NOT NULL UNIQUE,
+				email VARCHAR(30) NOT NULL,
 				password VARCHAR(30) NOT NULL,
 				dateOfBirth DATETIME			
 			)";
-	mysql_query($createUsers) or die(mysql_error());
+	mysqli_query($conn, $createUsers) or die(mysql_error());
 	echo "Table for users created!<br/>";
 
 	//create table for QUESTIONNAIRES
@@ -38,7 +49,7 @@
 				createdBy INT,				
 				FOREIGN KEY(createdBy) REFERENCES USERS(userID)
 			)";
-	mysql_query($createQuests) or die(mysql_error());
+	mysqli_query($conn, $createQuests) or die(mysql_error());
 	echo "Table for Questionnaires created!<br/>";
 
 	//create table for QUESTIONS
@@ -50,6 +61,6 @@
 				PRIMARY KEY(questionID),
 				FOREIGN KEY(questionnaireID) REFERENCES QUESTS(questID)  
 			)";
-	mysql_query($createQuestions) or die(mysql_error());
+	mysqli_query($conn, $createQuestions) or die(mysql_error());
 	echo "Table for Questions created!<br/>";
 ?>
