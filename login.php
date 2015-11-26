@@ -1,11 +1,12 @@
 <?php include 'header.php'; ?>
 
 
+
 <div class="container">
 	<div class="jumbotron">
 		<h1>Log in here!</h1>
 		<form role="form">
-			<div class="form-group">
+			<div class="form-group" action="index.php?logged=true">
 				<label for="email">Email address:</label>
 				<input type="email" class="form-control" id="email">
 			</div>

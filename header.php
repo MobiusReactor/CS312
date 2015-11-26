@@ -43,11 +43,35 @@
 						<li><a href="mquiz.php">My Quizes</a></li>
 						<li><a href="contact.php">Contact Us</a></li>
 					</ul>
+			
+					<?php
+						if($_GET['submitted'] == true && isset($_POST['email'])) {
+							include "php/getBasicData.php";
+							$result = getBasicData(
+									array("username", "password"),
+									"USERS",
+									array("username"=>$_POST['email'])
+							);
+							if (mysqli_num_rows($result) == 1) {
+								// user is authenticated
+								$row = mysqli_fetch_assoc($result);
+								
+							} else {
 
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					</ul>
+							}
+						} else {						
+							echo "<ul class='nav navbar-nav navbar-right'>
+								<li><a href='signup.php'>
+									<span class='glyphicon glyphicon-user'></span> Sign Up
+								</a></li>
+								<li><a href='login.php'>
+									<span class='glyphicon glyphicon-log-in'></span> Login
+								</a></li>
+							</ul>";						
+						}
+					?>
+
+
 				</div>
 			</div>
 

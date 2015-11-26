@@ -23,7 +23,7 @@
 	$createUsers = "CREATE TABLE USERS(
 				userID INT NOT NULL AUTO_INCREMENT,
 				PRIMARY KEY(userID),
-				username VARCHAR(30) NOT NULL,
+				email VARCHAR(30) NOT NULL UNIQUE,
 				password VARCHAR(30) NOT NULL,
 				dateOfBirth DATETIME			
 			)";
