@@ -18,6 +18,9 @@
 	echo "Connected to MySQL<br/>";
 	echo "Connected to Database<br/>";
 	
+	$fKey = "SET FOREIGN_KEY_CHECKS=0";
+	mysql_query($fKey) or die(mysql_error());
+	
 	// Need to kill tables first to avoid conflicts
 	$killUsers = "DROP TABLE IF EXISTS USERS";
 	mysql_query($killUsers) or die(mysql_error());
@@ -30,7 +33,9 @@
 	$killQuestions = "DROP TABLE IF EXISTS QUESTIONS";
 	mysql_query($killQuestions) or die(mysql_error());
 	echo "User table dropped<br/>";
-
+	
+	$fKey = "SET FOREIGN_KEY_CHECKS=1";
+	mysql_query($fKey) or die(mysql_error());
 
 
 	
@@ -62,6 +67,7 @@
 				questionnaireID INT,
 				questionType VARCHAR(100) NOT NULL,
 				question VARCHAR(100) NOT NULL,
+				options VARCHAR(100) NOT NULL,
 				PRIMARY KEY(questionID),
 				FOREIGN KEY(questionnaireID) REFERENCES QUESTS(questID)  
 			)";

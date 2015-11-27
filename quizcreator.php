@@ -1,17 +1,11 @@
 <?php include 'header.php'; ?>
-		<?php
-			if(isset($_POST['questions'])){
-					$qArray = json_decode(str_replace('\\', '', $_POST['questions']));
-					echo "yo that";
-			}
-		?>
 
 <script>
 	
 	var qArray = new Array();
 
 	function addQuestion(type){
-		var ni = document.getElementById('optionList')
+		var ni = document.getElementById('optionList');
 		
 		// actual quiz options would nominally go here, should probs
 		// split into classes or something for ease of addition.
@@ -50,59 +44,89 @@
 		ni.appendChild(newOpt);
 	}
 	
-	function validateEntry(){
+	function validateEntry(author){
 		var qList = document.getElementsByName('question');
+		var valid = true;
+		
 		
 		for(var i = 0; i < qList.length; i++){
 			var cQuest = qList[i];
 			var type = cQuest.getAttribute('type');
 			var uSpec = cQuest.getElementsByTagName('input');
+		
 			
-			if(uSpec.length == 1){
+			if(type == "title"){
 				var qName = uSpec[0].value;
 				if(qName == ""){
-					alert("One or more fields is not set");
+					valid = false;
+					break;
 				} else {
 					qArray.push([type, qName, []]);
 				}
-			} else if(uSpec.length == 2){
-				alert("not text");
+			} else if(type == "text"){
+				var qName = uSpec[0].value;
+				if(qName == ""){
+					valid = false;
+					break;
+				} else {
+					qArray.push([type, qName, []]);
+				}
+			} else if(type == "mult" || type == "radio"){
 				var qName = uSpec[0];
 				var qOpt = uSpec[1];
 				if(qName == "" || qOpt == ""){
-					alert("One or more fields is not set");
+					valid = false;
+					break;
 				} else {
-					qArray.push([type, qName, qOpt.split(";")]);
+					qArray.push([type, qName, qOpt]);
 				}
 			}
 			
 			//alert(cQuest.getElementsByTagName('input')[0]);
 		}
 		
-		// figure out how to pass qarray here
 		
-		var sArray = JSON.stringify(qArray);
-		
-		$.ajax(
-		{
-			type:'POST',
-			url:'quizcreator.php',
-			data:{questions:sArray},
-			success: function(data){
-			}
-		});
+		if(valid){
+
+			qArray.push(["author", author, []]);
+			
+			var sArray = JSON.stringify(qArray);
+			
+			$.ajax(
+			{
+				type:'POST',
+				url:'submitquiz.php',
+				data:{questions:sArray},
+				success: function(data){
+				}
+			});
+
+			window.location.href = "mquiz.php";
+			
+		} else {
+			alert("One or more fields is not set, please ensure all fields selected have text.");
+		}
 		
 		//header("refresh:0.1;url=quizcreator.php");
 	}
 </script>
 
 
-<div class="container-fluid">
+<div class="container">
 	<div class="jumbotron">
 		<div class="row">
 			<h1>Quiz creator</h1>
 			<p>Placeholder for list of your own quizzes and ability to edit them.</p>
 		</div>
+		
+		<div class="row" name="question" type="title">
+			<div class="form-group">
+				<label for="question">Questionnaire name:</label>
+				<input type="text" class="form-control" id="quizName">
+			</div>
+		</div>
+		
+		
 
 		<div class="row">
 			<div class="container-fluid" id="optionList"></div>
@@ -123,9 +147,9 @@
 					<li><a onClick="addQuestion('radio')">Radio button</a></li>
 				</ul>
 			</div>
-			<form name="sub">
-				<button onclick="validateEntry()" type="submit" class="btn btn-default">Create Quiz</button>
-			</form>
+			<?php
+				echo '<button onclick="validateEntry(\'' . $_SESSION["email"] . '\')" type="submit" class="btn btn-default">Create Quiz</button>';
+			?>
 		</div>
 		
 		

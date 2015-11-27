@@ -31,9 +31,9 @@
 					"password"=>$password
 				)
 			);
-		if (mysqli_num_rows($result) == 1) {
+		if (mysql_num_rows($result) == 1) {
 			/*user is authenticated*/
-			$row = mysqli_fetch_assoc($result);
+			$row = mysql_fetch_assoc($result);
 			$_SESSION['isLogged'] = true;
 			$_SESSION['email'] = $email;
 			if(isset($_POST['rememberMe'])) {
