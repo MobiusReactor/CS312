@@ -1,31 +1,35 @@
 <?php
 
 	//Connect to our DB
-	/*$_sname = "devweb2015.cis.strath.ac.uk";
+	$_sname = "devweb2015.cis.strath.ac.uk";
 	$_uname = "isb13142";
-	$_pword = "eiXaim9ee8mi";*/
+	$_pword = "eiXaim9ee8mi";
+	$_db = "isb13142";
+	/*
 	$_sname = "localhost";
 	$_uname = "root";
 	$_pword = "12345";
 	$_db = "SoEDB";
-	$conn = mysqli_connect($_sname, $_uname, $_pword);
-	mysqli_select_db($conn, $_db) or die(mysqli_error());
+	*/
+	$conn = mysql_connect($_sname, $_uname, $_pword);
+	mysql_select_db($_db) or die(mysql_error());
 
 	
 	echo "Connected to MySQL<br/>";
 	echo "Connected to Database<br/>";
 	
 	// Need to kill tables first to avoid conflicts
-	$killUsers = "DROP TABLE USERS";
-	mysqli_query($conn, $killUsers);
-	
+	$killUsers = "DROP TABLE IF EXISTS USERS";
+	mysql_query($killUsers) or die(mysql_error());
+	echo "User table dropped<br/>";
 
-	$killQuests = "DROP TABLE QUESTS";
-	mysqli_query($conn, $killQuests);
+	$killQuests = "DROP TABLE IF EXISTS QUESTS";
+	mysql_query($killQuests) or die(mysql_error());
+	echo "User table dropped<br/>";
 	
-	$killQuestions = "DROP TABLE QUESTIONS";
-	mysqli_query($conn, $killQuestions);
-	
+	$killQuestions = "DROP TABLE IF EXISTS QUESTIONS";
+	mysql_query($killQuestions) or die(mysql_error());
+	echo "User table dropped<br/>";
 
 
 
@@ -38,7 +42,7 @@
 				password VARCHAR(30) NOT NULL,
 				dateOfBirth DATETIME			
 			)";
-	mysqli_query($conn, $createUsers) or die(mysql_error());
+	mysql_query($createUsers) or die(mysql_error());
 	echo "Table for users created!<br/>";
 
 	//create table for QUESTIONNAIRES
@@ -49,7 +53,7 @@
 				createdBy INT,				
 				FOREIGN KEY(createdBy) REFERENCES USERS(userID)
 			)";
-	mysqli_query($conn, $createQuests) or die(mysql_error());
+	mysql_query($createQuests) or die(mysql_error());
 	echo "Table for Questionnaires created!<br/>";
 
 	//create table for QUESTIONS
@@ -61,6 +65,6 @@
 				PRIMARY KEY(questionID),
 				FOREIGN KEY(questionnaireID) REFERENCES QUESTS(questID)  
 			)";
-	mysqli_query($conn, $createQuestions) or die(mysql_error());
+	mysql_query($createQuestions) or die(mysql_error());
 	echo "Table for Questions created!<br/>";
 ?>

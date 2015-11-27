@@ -16,15 +16,15 @@
 				die();
 			}
 			
-			//$_uname = "isb13142";
-			//$_pword = "eiXaim9ee8mi";
-			$servername = "localhost";
-			$username = "root";
-			$password = "12345";
-			//mysql_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
-			mysql_connect($servername, $username, $password);
-			//mysql_select_db($_uname) or die(mysql_error());
-			mysql_select_db("SoEDB") or die(mysql_error());
+			$_uname = "isb13142";
+			$_pword = "eiXaim9ee8mi";
+			//$servername = "localhost";
+			//$username = "root";
+			//$password = "12345";
+			mysql_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
+			//mysql_connect($servername, $username, $password);
+			mysql_select_db($_uname) or die(mysql_error());
+			//mysql_select_db("SoEDB") or die(mysql_error());
 
 			
 			$query = sprintf("INSERT INTO USERS (email, password) VALUES('%s', '%s') ",
@@ -45,7 +45,7 @@
 			echo "<ul>";
 
 			while($row = mysql_fetch_array($result)){
-				echo "<li>" . $row["username"] . "</li>";
+				echo "<li>" . $row["email"] . "</li>";
 			}
 
 			echo "</ul>";

@@ -3,10 +3,12 @@
 
 <div class="container">
 <?php
-	if($_GET['error']=="incorrectAuth") {
-		echo "<div class='alert alert-danger'>
-  			<strong>Error!</strong> Check your email/password.
-		</div>";
+	if(isset($_GET['error'])){
+		if($_GET['error']=="incorrectAuth") {
+			echo "<div class='alert alert-danger'>
+				<strong>Error!</strong> Check your email/password.
+			</div>";
+		}
 	}
 
 ?>

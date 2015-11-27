@@ -1,19 +1,23 @@
 <?php
+
+	$login = false;
 	session_start();
-	if($_GET['log'] == "out") {
-		session_unset();
-		unset($_COOKIE['email']);
-		unset($_COOKIE['password']);
-		setcookie("email", "", time() - 3600, "/");
-		setcookie("password", "", time() - 3600, "/");
-	} else if(($_GET['log'] == "in") && isset($_POST['email'])) {
-		$login = true;
-		$email = $_POST['email'];
-		$password = $_POST['password'];
-	} else if(isset($_COOKIE['email'])) {
-		$login = true;
-		$email = $_COOKIE['email'];
-		$password = $_COOKIE['password'];
+	if(isset($_GET['log'])){
+		if($_GET['log'] == "out") {
+			session_unset();
+			unset($_COOKIE['email']);
+			unset($_COOKIE['password']);
+			setcookie("email", "", time() - 3600, "/");
+			setcookie("password", "", time() - 3600, "/");
+		} else if(($_GET['log'] == "in") && isset($_POST['email'])) {
+			$login = true;
+			$email = $_POST['email'];
+			$password = $_POST['password'];
+		} else if(isset($_COOKIE['email'])) {
+			$login = true;
+			$email = $_COOKIE['email'];
+			$password = $_COOKIE['password'];
+		}
 	}
 
 	if($login) {
@@ -88,13 +92,17 @@
 				<div>
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home Page</a></li>
-						<li><a href="aquiz.php">All Quizes</a></li>
-						<li><a href="mquiz.php">My Quizes</a></li>
+						<?php
+							if(isset($_SESSION['isLogged'])) {
+								echo "<li><a href='aquiz.php'>All Quizes</a></li>";
+								echo "<li><a href='mquiz.php'>My Quizes</a></li>";
+							}
+						?>
 						<li><a href="contact.php">Contact Us</a></li>
 					</ul>
 			
 					<?php
-						if($_SESSION['isLogged']) {
+						if(isset($_SESSION['isLogged'])) {
 							/*user is logged*/
 							$email = $_SESSION['email'];
 							echo " <div class='dropdown rightDiv'>

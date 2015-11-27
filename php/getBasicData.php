@@ -2,13 +2,16 @@
 
 function getBasicData($select, $from, $where = NULL){
 	//Connect to our DB
-	/*$_sname = "devweb2015.cis.strath.ac.uk";
+	$_sname = "devweb2015.cis.strath.ac.uk";
 	$_uname = "isb13142";
-	$_pword = "eiXaim9ee8mi";*/
+	$_pword = "eiXaim9ee8mi";
+	$_db = "isb13142";
+	/*
 	$_sname = "localhost";
 	$_uname = "root";
 	$_pword = "12345";
 	$_db = "SoEDB";
+	*/
 	$conn = mysqli_connect($_sname, $_uname, $_pword);
 	mysqli_select_db($conn, $_db) or die(mysqli_error());
 	
