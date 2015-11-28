@@ -61,7 +61,7 @@
 					valid = false;
 					break;
 				} else {
-					qArray.push([type, qName, []]);
+					qArray.push([type, qName, ""]);
 				}
 			} else if(type == "text"){
 				var qName = uSpec[0].value;
@@ -69,11 +69,12 @@
 					valid = false;
 					break;
 				} else {
-					qArray.push([type, qName, []]);
+					qArray.push([type, qName, ""]);
 				}
 			} else if(type == "mult" || type == "radio"){
-				var qName = uSpec[0];
-				var qOpt = uSpec[1];
+				var qName = uSpec[0].value;
+				var qOpt = uSpec[1].value;
+				
 				if(qName == "" || qOpt == ""){
 					valid = false;
 					break;

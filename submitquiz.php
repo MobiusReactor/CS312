@@ -31,15 +31,24 @@
 	
 	mysql_query($query) or die(mysql_error()); 
 	
+	$qID = mysql_insert_id();
+	
 	foreach($qArray as $q){
 		$type = $q[0];
+		if($type == "title" || $type == "author"){
+			continue;
+		}
 		$data = $q[1];
 		$options = $q[2];
-		if($type == "text"){
-			
-		} else if($type == "mult" || $type == "radio"){
-			
-		}
+		
+		$query = sprintf("INSERT INTO QUESTIONS (questionnaireID, questionType, question, options) VALUES(%u, '%s', '%s', '%s') ",
+			$qID,
+			mysql_real_escape_string($type),
+			mysql_real_escape_string($data),
+			mysql_real_escape_string($options)
+		) or die(mysql_error());
+		
+		mysql_query($query) or die(mysql_error()); 
 	}
 	
 ?>

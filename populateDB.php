@@ -55,7 +55,7 @@
 				questID INT NOT NULL AUTO_INCREMENT,
 				PRIMARY KEY(questID),
 				questName VARCHAR(30) NOT NULL,
-				createdBy INT,				
+				createdBy INT NOT NULL,				
 				FOREIGN KEY(createdBy) REFERENCES USERS(userID)
 			)";
 	mysql_query($createQuests) or die(mysql_error());
@@ -64,7 +64,7 @@
 	//create table for QUESTIONS
 	$createQuestions = "CREATE TABLE QUESTIONS(
 				questionID INT NOT NULL AUTO_INCREMENT,
-				questionnaireID INT,
+				questionnaireID INT NOT NULL,
 				questionType VARCHAR(100) NOT NULL,
 				question VARCHAR(100) NOT NULL,
 				options VARCHAR(100) NOT NULL,

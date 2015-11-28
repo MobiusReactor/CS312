@@ -1,5 +1,13 @@
 <?php include 'header.php'; ?>
 
+<?php 
+	if(!isset($_SESSION["email"])){
+			header("Location: index.php");
+	}
+?>
+
+
+
 
 <div class="container">
 	<div class="jumbotron">
@@ -23,7 +31,7 @@
 			echo "<ul>";
 
 			while($row = mysql_fetch_array($result)){
-				echo "<li>" . $row["questName"] . "</li>";
+				echo "<li><a href='quizviewer.php?quizID=" . $row["questID"] . "'>" . $row["questName"] . "</a></li>";
 			}
 
 			echo "</ul>";
