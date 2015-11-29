@@ -3,6 +3,7 @@
 
 <div class="container">
 <?php
+	/*Display error message if was not authenticated*/
 	if(isset($_GET['error'])){
 		if($_GET['error']=="incorrectAuth") {
 			echo "<div class='alert alert-danger'>

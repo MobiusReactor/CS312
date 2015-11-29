@@ -1,55 +1,7 @@
 <?php
-
-	$login = false;
-	session_start();
-	if(isset($_GET['log'])){
-		if($_GET['log'] == "out") {
-			session_unset();
-			unset($_COOKIE['email']);
-			unset($_COOKIE['password']);
-			setcookie("email", "", time() - 3600, "/");
-			setcookie("password", "", time() - 3600, "/");
-		} else if(($_GET['log'] == "in") && isset($_POST['email'])) {
-			$login = true;
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-		} else if(isset($_COOKIE['email'])) {
-			$login = true;
-			$email = $_COOKIE['email'];
-			$password = $_COOKIE['password'];
-		}
-	}
-
-	if($login) {
-		/*user has tried to authenticate*/
-		include "php/getBasicData.php";
-		$result = getBasicData(
-				array("email", "password"),
-				"USERS",
-				array(
-					"email"=>$email,
-					"password"=>$password
-				)
-			);
-		if (mysql_num_rows($result) == 1) {
-			/*user is authenticated*/
-			$row = mysql_fetch_assoc($result);
-			$_SESSION['isLogged'] = true;
-			$_SESSION['email'] = $email;
-			if(isset($_POST['rememberMe'])) {
-				$cookieEmailN = "email";
-				$cookieEmailV = $_POST['email'];
-				$cookiePwdN = "password";
-				$cookiePwdV = $_POST['password'];
-				setcookie($cookieEmailN, $cookieEmailV, time() + (86400 * 30), "/");
-				setcookie($cookiePwdN, $cookiePwdV, time() + (86400 * 30), "/");
-			}
-		} else {
-			/*user is not authenticated*/
-			header("refresh:0.1;url=login.php?error=incorrectAuth");
-		}
-	}
-	
+	ini_set('display_errors', 'On');
+	error_reporting(E_ALL);
+	include "php/authentication.php";
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -103,7 +55,7 @@
 			
 					<?php
 						if(isset($_SESSION['isLogged'])) {
-							/*user is logged*/
+							/*user is logged -> display the account menu*/
 							$email = $_SESSION['email'];
 							echo " <div class='dropdown rightDiv'>
   								<button class='btn btn-primary dropdown-toggle' type='button'
@@ -116,7 +68,8 @@
 							</div>";
 						
 						} else {
-							/*user is not logged*/						
+							/*user is not logged -> display
+							  Sign Up/Login links*/						
 							echo "<ul class='nav navbar-nav navbar-right'>
 								<li><a href='signup.php'>
 									<span class='glyphicon glyphicon-user'></span> Sign Up

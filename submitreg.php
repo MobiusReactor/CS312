@@ -1,4 +1,6 @@
-<?php include 'header.php'; ?>
+<?php 
+	include 'header.php';
+?>
 
 
 <div class="container">
@@ -9,20 +11,26 @@
 				header("refresh:2;url=signup.php");
 				die();
 			}
+
+			$emailResults = getBasicData(array("email"), "USERS", array("email"=>$_POST['reg_email']));
+			if(mysql_num_rows($emailResults) > 0) {
+				echo("Email is already taken, choose another one!");	
+				header("refresh:2;url=signup.php");
+				die();	
+			}
 			
 			if($_POST["reg_pword"] != $_POST["reg_pwordc"]){
 				echo("Passwords do not match!");	
 				header("refresh:2;url=signup.php");
 				die();
 			}
-			
+			$_sname = "devweb2015.cis.strath.ac.uk";
 			$_uname = "isb13142";
 			$_pword = "eiXaim9ee8mi";
-			//$servername = "localhost";
-			//$username = "root";
-			//$password = "12345";
-			mysql_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
-			//mysql_connect($servername, $username, $password);
+			//$_sname = "localhost";
+			//$_uname = "root";
+			//$_pword = "12345";
+			mysql_connect($_sname, $_uname, $_pword);
 			mysql_select_db($_uname) or die(mysql_error());
 			//mysql_select_db("SoEDB") or die(mysql_error());
 
