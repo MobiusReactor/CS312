@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'php/header.php'; ?>
 
 <?php 
 	if(!isset($_SESSION["email"])){
@@ -15,12 +15,6 @@
 		<p>Placeholder for list of all quizzes you can fill out when logged in.</p>
 		
 		<?php
-			
-			$_uname = "isb13142";
-			$_pword = "eiXaim9ee8mi";
-			mysql_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
-			mysql_select_db($_uname) or die(mysql_error());
-
 
 			$query = "SELECT * FROM QUESTS"; 
 
@@ -40,5 +34,5 @@
 	</div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'php/footer.php'; ?>
 

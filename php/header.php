@@ -1,7 +1,21 @@
 <?php
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
-	include "php/authentication.php";
+	
+	echo dirname(__DIR__);
+	
+	
+	$_sname = "devweb2015.cis.strath.ac.uk";
+	$_uname = "isb13142";
+	$_pword = "eiXaim9ee8mi";
+	//$_sname = "localhost";
+	//$_uname = "root";
+	//$_pword = "12345";
+	mysql_connect($_sname, $_uname, $_pword);
+	mysql_select_db($_uname) or die(mysql_error());
+	//mysql_select_db("SoEDB") or die(mysql_error());
+
+	include "authentication.php";
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -29,7 +43,7 @@
 
 		<div class="row">
 			<div class="col-sm-9">
-				<img src="logo.jpg" class="img-rounded" alt="Cinque Terre" width="204" height="166">
+				<img src="img/logo.jpg" class="img-rounded" alt="Cinque Terre" width="204" height="166">
 			</div>
 		</div>
 

@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'php/header.php'; ?>
 
 <script>
 	
@@ -96,7 +96,7 @@
 			$.ajax(
 			{
 				type:'POST',
-				url:'submitquiz.php',
+				url:'php/submitquiz.php',
 				data:{questions:sArray},
 				success: function(data){
 				}
@@ -158,4 +158,4 @@
 	</div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'php/footer.php'; ?>

@@ -1,7 +1,7 @@
 <?php
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);	
-	include 'header.php';
+	include 'php/header.php';
 ?>
 
 
@@ -12,5 +12,5 @@
 	</div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'php/footer.php'; ?>
 

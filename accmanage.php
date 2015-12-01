@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'php/header.php'; ?>
 
 <?php 
 	if(!isset($_SESSION["email"])){
@@ -13,5 +13,5 @@
 	</div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'php/footer.php'; ?>
 

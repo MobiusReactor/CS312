@@ -1,5 +1,5 @@
 <?php 
-	include 'header.php';
+	include 'php/header.php';
 ?>
 
 
@@ -24,15 +24,7 @@
 				header("refresh:2;url=signup.php");
 				die();
 			}
-			$_sname = "devweb2015.cis.strath.ac.uk";
-			$_uname = "isb13142";
-			$_pword = "eiXaim9ee8mi";
-			//$_sname = "localhost";
-			//$_uname = "root";
-			//$_pword = "12345";
-			mysql_connect($_sname, $_uname, $_pword);
-			mysql_select_db($_uname) or die(mysql_error());
-			//mysql_select_db("SoEDB") or die(mysql_error());
+			
 
 			
 			$query = sprintf("INSERT INTO USERS (email, password) VALUES('%s', '%s') ",
@@ -64,5 +56,5 @@
 	</div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'php/footer.php'; ?>
 
