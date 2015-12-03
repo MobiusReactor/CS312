@@ -2,6 +2,35 @@
 
 
 <div class="container">
+<?php
+
+	switch($_GET['error']) {
+		case "missing":
+			echo "<div class='alert alert-danger'>
+				<strong>Error!</strong> One or more fields missing data.
+			</div>";
+			break;
+
+		case "email":
+			echo "<div class='alert alert-danger'>
+				<strong>Error!</strong> Invalid email.
+			</div>";
+			break;
+		case "taken":
+			echo "<div class='alert alert-danger'>
+				<strong>Error!</strong> Email is already taken, choose another one.
+			</div>";
+			break;
+		case "pwds":
+			echo "<div class='alert alert-danger'>
+				<strong>Error!</strong> Passwords do not match.
+			</div>";
+			break;	
+		default:
+		
+	}
+
+?>
 	<div class="jumbotron">
 		<h1>Sign up here!</h1>
 		<script src="js/checkSignUp.js">
