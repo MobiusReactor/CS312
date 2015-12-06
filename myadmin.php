@@ -1,5 +1,5 @@
 <?php
-	include 'header.php';
+	include 'php/header.php';
 ?>
 
 <div class="container-fluid" style="margin-left:20%; margin-right:20%">
@@ -31,12 +31,18 @@
           <th>Password</th>
         </tr>
       </thead>
-      <tr>
-        <td>1</td>
-        <td>smth</td>
-        <td>kalalalala</td>
-      </tr>
-
+      <?php
+        $result = getBasicData(array("userID", "email", "password"), "USERS");
+        if(mysql_num_rows($result) > 0) {
+          while($row = mysql_fetch_array($result)){
+            echo "<tr>
+                    <td>$row[0]</td>
+                    <td>$row[1]</td>
+                    <td>$row[2]</td>
+                  </tr> ";
+          }
+        }
+      ?>
     </table>
   </div>
 </div>
