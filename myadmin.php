@@ -33,14 +33,15 @@
       </thead>
       <?php
         $result = getBasicData(array("userID", "email", "password"), "USERS");
-        if(mysql_num_rows($result) > 0) {
-          while($row = mysql_fetch_array($result)){
+        if(mysqli_num_rows($result) > 0) {
+          while($row = mysqli_fetch_array($result)){
             echo "<tr>
                     <td>$row[0]</td>
                     <td>$row[1]</td>
                     <td>$row[2]</td>
-                  </tr> ";
-          }
+                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right\">Delete</button></td>
+                  </tr>";
+          }  
         }
       ?>
     </table>

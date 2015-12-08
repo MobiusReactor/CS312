@@ -40,9 +40,9 @@
 					"password"=>$password
 				)
 			);
-		if (mysql_num_rows($result) == 1) {
+		if (mysqli_num_rows($result) == 1) {
 			/*email/password pair is found -> log user in*/
-			$row = mysql_fetch_assoc($result);
+			$row = mysqli_fetch_assoc($result);
 			$_SESSION['isLogged'] = true;
 			$_SESSION['email'] = $email;
 			if(isset($_POST['rememberMe'])) {

@@ -18,13 +18,13 @@
 	
 			$query = "SELECT * FROM QUESTS q, USERS u WHERE u.email = \"" . $_SESSION["email"] . "\" AND u.userID = q.createdBy;"; 
 
-			$result = mysql_query($query) or die(mysql_error());
+			$result = mysqli_query($link, $query) or die(mysql_error());
 				
 			echo "<h2>LIST OF YOUR QUESTIONAIRES:</h2>";
 
 			echo "<ul>";
 
-			while($row = mysql_fetch_array($result)){
+			while($row = mysqli_fetch_array($result)){
 				echo "<li>" . $row["questName"] . "</li>";
 			}
 

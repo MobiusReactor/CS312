@@ -10,27 +10,25 @@
 
 	$query = "SELECT COUNT(*) FROM QUESTS q WHERE q.questID = " . $qID . ";"; 
 
-	$result = mysql_query($query) or die(mysql_error());
-	
-	$iRes = (integer)(mysql_result($result, 0, 0));
+	$result = mysqli_query($link, $query) or die(mysql_error());
 	
 	
-	if($iRes != 1){
-		header("Location: index.php");	
+	
+	if(mysqli_num_rows($result) == 0){
+ 		header("Location: index.php");	
 	}
 	
 	$query = "SELECT questName FROM QUESTS q WHERE q.questID = " . $qID . ";"; 
 
-	$result = mysql_query($query) or die(mysql_error());
+	$result = mysqli_query($link, $query) or die(mysql_error());
 	
-	$qTitle = (mysql_result($result, 0, 0));
+	$qTitle = mysqli_fetch_assoc($result)['questName'];
 
-	
 	$query = "SELECT u.email FROM QUESTS q, USERS u WHERE q.questID = " . $qID . " AND q.createdBy = u.userID;"; 
 
-	$result = mysql_query($query) or die(mysql_error());
+	$result = mysqli_query($link, $query) or die(mysql_error());
 	
-	$qAuthor = (mysql_result($result, 0, 0));
+	$qAuthor = mysqli_fetch_assoc($result)['email'];
 
 ?>
 
@@ -48,10 +46,10 @@
 		
 			$query = "SELECT * FROM QUESTIONS q WHERE q.questionnaireID = " . $qID . ";"; 
 
-			$result = mysql_query($query) or die(mysql_error());
+			$result = mysqli_query($link, $query) or die(mysql_error());
 				
 
-			while($row = mysql_fetch_array($result)){
+			while($row = mysqli_fetch_array($result)){
 
 				echo '<div class="form-group" name="question" type="title">';
 				echo '	<div>';

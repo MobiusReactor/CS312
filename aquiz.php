@@ -18,13 +18,13 @@
 
 			$query = "SELECT * FROM QUESTS"; 
 
-			$result = mysql_query($query) or die(mysql_error());
+			$result = mysqli_query($link, $query) or die(mysql_error());
 				
 			echo "<h2>LIST OF QUESTIONAIRES:</h2>";
 
 			echo "<ul>";
 
-			while($row = mysql_fetch_array($result)){
+			while($row = mysqli_fetch_array($result)){
 				echo "<li><a href='quizviewer.php?quizID=" . $row["questID"] . "'>" . $row["questName"] . "</a></li>";
 			}
 
