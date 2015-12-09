@@ -1,38 +1,20 @@
 <?php include 'php/header.php'; ?>
-	<!-- Modal -->
-	<div class="modal fade" id="enterMult" role="dialog">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Write options for your question</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="container-fluid" id="modalOptions"></div>
-					</div>
-					<div class='row' id="options">
-						<button class="btn btn-primary" type="button" onclick="addOption()">Add Option</button>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions()">
-						Submit
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 <script>
-
-	/*$(document.body).on('hidden.bs.modal', '.modal', function () {
-    		$(".modal-body").html("<div class='row'><div class='container-fluid' id='modalOptions'></div></div><div class='row' id='options'><button class='btn btn-primary' type='button' onclick='addOption()'>Add Option</button></div>");
-	});*/
 	
 	var qArray = new Array();
 
-	function addOption(index) {
+	/**
+	* The structure for creating quizes is VERY complicated, so here I will try to explain it:
+	*	1) When creating 'text' inputs, it is all straigthforward -> the form field is located, and that's it
+	*	2) When radio or multiple choice buttons are created, it is more complex -> 
+	*		A new modal is created, it is being attached to a field.
+	*		Then user inputs values in modal, and these values are then saved in hidden field attached to form element
+	*	3) The whole communcation is being carried out by using unique IDs such as option3, question5, modal9 etc...
+	*
+	*/
+
+	function addOption(index) {	
 		var ni = document.getElementById('modalOptions'+index);
 		var numberOfElements = ni.childNodes.length;
 		var newOpt = document.createElement('div');
@@ -40,7 +22,7 @@
 						'<label for="question">Option ' +(numberOfElements+1)+ '</label>' +
 						'<div class="row">' +
 							'<div class="col-md-11">' +
-								'<input type="text" class="form-control optionAnswer">' +
+								'<input type="text" class="form-control optionAnswer'+index+'">' +
 						'</div><div class="col-md-1">' +
 						'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteOption('+numberOfElements+')">' + 
 						'Delete</button></div></div>' +
@@ -51,13 +33,13 @@
 	function addQuestion(type){
 		var ni = document.getElementById('optionList');
 		var numberOfElements = ni.childNodes.length;
-		
 		// actual quiz options would nominally go here, should probs
 		// split into classes or something for ease of addition.
 		var newOpt = document.createElement('div');
 		newOpt.setAttribute('name', 'question');
 		newOpt.setAttribute('type', type);
 		newOpt.setAttribute('class', 'row');
+		newOpt.setAttribute('id', 'question'+numberOfElements);
 		if(type == "text"){
 			newOpt.innerHTML = 	'<div class="form-group">' +
 							'<label for="question">Text question name:</label>' +
@@ -96,7 +78,7 @@
 							'<button class="btn btn-primary" type="button" onclick="addOption('+numberOfElements+')">Add Option</button>' +
 						'</div>' +
 						'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions()">Submit</button>' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions('+numberOfElements+')">Submit</button>' +
 						'</div>' +
 					'</div>' +
 				'</div>' +
@@ -112,8 +94,7 @@
 							'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
 							'Delete</button></div></div>' +
 							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
-							'data-target="#enterMult">Configure Options</button>' +
-							//'<label for="question">Option (seperated by semicolons eg favourite colours: "red;blue;orange"):</label>' +
+							'data-target="#enterMult'+numberOfElements+'">Configure Options</button>' +
 							'<input type="hidden" class="form-control" id="questionOpts">' +
 						'</div>' + 
 			'<div class="modal fade" id="enterMult'+numberOfElements+'" role="dialog">' +
@@ -126,10 +107,11 @@
 						'<div class="modal-body">' +
 						'<div class="row"><div class="container-fluid" id="modalOptions'+numberOfElements+'"></div></div>' +
 						'<div class="row" id="options">' +
-							'<button class="btn btn-primary" type="button" onclick="addOption('+numberOfElements+')">Add Option</button>' +
+							'<button class="btn btn-primary" type="button" ' +
+							'onclick="addOption(' + numberOfElements + ')">Add Option</button>' +
 						'</div>' +
 						'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions()">Submit</button>' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions('+numberOfElements+')">Submit</button>' +
 						'</div>' +
 					'</div>' +
 				'</div>' +
@@ -144,7 +126,8 @@
 
 	function deleteEntry(entry) {
 		var ni = document.getElementById('optionList');
-		ni.removeChild(ni.childNodes[entry]);
+		//ni.removeChild(ni.childNodes[entry]);
+		ni.removeChild(document.getElementById('question'+entry));
 	}
 
 	function deleteOption(entry) {
@@ -152,8 +135,8 @@
 		ni.removeChild(ni.childNodes[entry]);
 	}
 
-	function sendOptions() {
-		var answers = document.getElementsByClassName('optionAnswer');
+	function sendOptions(index) {
+		var answers = document.getElementsByClassName('optionAnswer'+index);
 		var ni = document.getElementById("optionList");
 		var hidden = ni.lastChild.firstChild.lastChild;
 
@@ -205,7 +188,6 @@
 				}
 			}
 			
-			//alert(cQuest.getElementsByTagName('input')[0]);
 		}
 		
 		

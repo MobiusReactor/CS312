@@ -49,7 +49,8 @@
 				PRIMARY KEY(userID),
 				email VARCHAR(30) NOT NULL,
 				password VARCHAR(30) NOT NULL,
-				dateOfBirth DATETIME			
+				dateOfBirth DATETIME,
+				isAdmin BOOLEAN DEFAULT FALSE		
 			)";
 	mysqli_query($conn, $createUsers) or die(mysql_error());
 	echo "Table for users created!<br/>";
@@ -79,6 +80,7 @@
 	//create table for ANSWERS
 	$createAnswers = "CREATE TABLE ANSWERS(
 				answerID INT NOT NULL AUTO_INCREMENT,
+				PRIMARY KEY(answerID),
 				answeredBy INT NOT NULL,
 				questionID INT NOT NULL,
 				answer VARCHAR(100) NOT NULL,
@@ -86,7 +88,9 @@
 				FOREIGN KEY(answeredBy) REFERENCES USERS(userID)
 	)";
 	mysqli_query($conn, $createQuestions) or die(mysqli_error($conn));
-	mysqli_query($conn, $createAnswers) or die(mysqli_error($conn));
-
 	echo "Table for Questions created!<br/>";
+	mysqli_query($conn, $createAnswers) or die(mysqli_error($conn));
+	echo "Table for Answers created!<br/>";
+
+	
 ?>

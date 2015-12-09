@@ -19,7 +19,7 @@
 		}
 	}
 	
-	$queryi = "SELECT userID FROM USERS WHERE email = '$authorEmail'"; 
+	$queryi = "SELECT userID FROM USERS WHERE email = '$quizResponder'"; 
 	$uID = mysqli_query($link, $queryi) or die(mysqli_error($link));
 	$uID = mysqli_fetch_array($uID);
 
@@ -29,14 +29,14 @@
 		if($type == "quizID" || $type == "author"){
 			continue;
 		}
-		$data = $q[1];
+		$qID = $q[1];
+		$data = $q[2];
 		
 		$query = sprintf("INSERT INTO ANSWERS (answeredBy, questionID, answer) VALUES(%u, %u, '%s') ",
-			(integer) $quizResponder,
-			(integer) $quizID,
+			(integer) $uID['userID'],
+			(integer) $qID,
 			mysqli_real_escape_string($link, $data)	
 		) or die(mysql_error());
-		echo $quizID;
 		mysqli_query($link, $query) or die(mysqli_error($link));
 		
 	}

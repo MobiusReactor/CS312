@@ -3,12 +3,13 @@
 ?>
 <script>
 
-function deleteRow(id) {
+function deleteRow(id, button) {
   $.ajax(
   {
     type : 'POST',
     url : './php/deleterow.php',
-    data: { userId : id },
+    data: { ID : id,
+            DB : button  },
     success: function(response){
       if(response == "true") {
         alert(response);
@@ -21,6 +22,7 @@ function deleteRow(id) {
     async: false
   });
   return success;
+  
 }
 
   $(function () {
@@ -49,19 +51,36 @@ function deleteRow(id) {
       }
     });
   });
-  $(document).on('click', 'button.del', function () { // <-- changes
-     //alert("You are about to delete user!");
+  $(document).on('click', '.usr, .qts, .ans', function () { // <-- changes
+    if($(this).attr("class").indexOf("usr") > -1){
+      var $bt = "user";
+    }
+    if($(this).attr("class").indexOf("qts") > -1){
+      var $bt = "quiz";
+    }
+    if($(this).attr("class").indexOf("ans") > -1){
+      var $bt = "answer";
+    }
+    if($(this).attr("class").indexOf("qs") > -1){
+      var $bt = "question";
+    }
+
      var $row = $(this).closest("tr");        // Finds the closest row <tr> 
      var $id = $row.find("td:nth-child(1)").text();  // Finds the 1st <td> element;
-     alert("You are about to delete user!");
-     if(deleteRow($id)){
-      alert("Used successfully deleted");
-      $row.remove();
-     }else{
-      alert("User deletion was unsuccessful");
+     if (confirm(
+        "You are about to delete the " + $bt + " and all data associated with it. Do you want to continue?")
+        ){
+            if(deleteRow($id, $bt)){
+              alert("Used successfully deleted");
+              $row.remove();
+            }else {
+              alert("User deletion was unsuccessful");
+            }
+
      }
      return false;
  });
+ 
 </script>
 <div class="container-fluid" style="margin-left:20%; margin-right:20%">
   <div class="row">
@@ -128,7 +147,7 @@ function deleteRow(id) {
                     <td>$row[1]</td>
                     <td>$row[2]</td>
                     <td>
-                          <button type=\"button\" class=\"btn btn-xs btn-danger pull-right del\">
+                          <button type=\"button\" class=\"btn btn-xs btn-danger pull-right usr\">
                                   Delete</button>
                     </td>
                   </tr>";
@@ -154,12 +173,12 @@ function deleteRow(id) {
                     <td>$row[0]</td>
                     <td>$row[1]</td>
                     <td>$row[2]</td>
-                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right\">Delete</button></td>
+                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right qts\">Delete</button></td>
                   </tr>";
           }  
         }
       ?>
-
+    </table>
   </div> 
   <div class="row ans">
     <table class="table table-condensed">
@@ -180,10 +199,12 @@ function deleteRow(id) {
                     <td>$row[1]</td>
                     <td>$row[2]</td>
                     <td>$row[3]</td>
+                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right ans\">Delete</button></td>
                   </tr>";
           }  
         }
       ?>
+    </table>
   </div> 
   <div class="row quest">
     <table class="table table-condensed">
@@ -206,10 +227,11 @@ function deleteRow(id) {
                     <td>$row[2]</td>
                     <td>$row[3]</td>
                     <td>$row[4]</td>
+                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right qs\">Delete</button></td>
                   </tr>";
           }  
         }
       ?>
-
+    </table>
   </div> 
 </div>

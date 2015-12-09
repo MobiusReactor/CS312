@@ -3,7 +3,7 @@
 	$_uname = "isb13142";
 	$_pword = "eiXaim9ee8mi";
 	$link = mysqli_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
-	mysqli_select_db($link, $_uname) or die(mysql_error());
+	mysqli_select_db($link, $_uname) or die(mysqli_error($link));
 	
 	$qArray = json_decode(str_replace('\\', '', $_POST['questions']));
 
@@ -22,16 +22,16 @@
 	
 	$queryi = "SELECT userID FROM USERS WHERE email = '$authorEmail'"; 
 	
-	$uID = mysqli_query($link, $queryi) or die(mysql_error());
+	$uID = mysqli_query($link, $queryi) or die(mysqli_error($link));
 	$uID = mysqli_fetch_array($uID);
 	$query = sprintf("INSERT INTO QUESTS (questName, createdBy) VALUES('%s', %u) ",
 		mysqli_real_escape_string($link, $quizTitle),
 		$uID['userID']
 	) or die(mysql_error());
 	
-	mysqli_query($link, $query) or die(mysql_error()); 
+	mysqli_query($link, $query) or die(mysqli_error($link)); 
 	
-	$qID = mysqli_insert_id($link) or die(mysql_error());
+	$qID = mysqli_insert_id($link) or die(mysqli_error($link));
 	
 	foreach($qArray as $q){
 		$type = $q[0];
@@ -48,7 +48,7 @@
 			mysqli_real_escape_string($link, $options)
 		) or die(mysql_error());
 		
-		mysqli_query($link, $query) or die(mysql_error());
+		mysqli_query($link, $query) or die(mysqli_error($link));
 	}
 	
 ?>

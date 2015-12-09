@@ -19,13 +19,24 @@
 			$query = "SELECT * FROM QUESTS q, USERS u WHERE u.email = \"" . $_SESSION["email"] . "\" AND u.userID = q.createdBy;"; 
 
 			$result = mysqli_query($link, $query) or die(mysqli_error());
-				
+			
 			echo "<h2>LIST OF YOUR QUESTIONAIRES:</h2>";
 
 			echo "<ul>";
 
 			while($row = mysqli_fetch_array($result)){
-				echo "<li>" . $row["questName"] . "</li>";
+				$result2 = getBasicData(array("questionID"), "QUESTIONS", array("questionnaireID" => $row['questID']));
+			
+				$question_idents = array();
+
+				while($row2 = mysqli_fetch_array($result2)) {
+					$question_idents[] = $row2['questionID'];
+				}
+
+				$question_idents = json_encode($question_idents);
+
+				echo "<li><a href='myquizanalysis.php?quizID=".$row['questID']."'
+onlick='showQuizStats(".$question_idents.")'>" . $row["questName"] . "</a></li>";
 			}
 
 			echo "</ul>";
@@ -35,6 +46,14 @@
 		<form action="quizcreator.php">
 			<button type="submit" class="btn btn-default">Create New Quiz</button>
 		</form>
+
+	<script>
+		function showQuizStats(quizID){
+			var data = JSON.parse(quizID);
+			alert(data);
+		}
+	</script>
+
 	</div>
 </div>
 
