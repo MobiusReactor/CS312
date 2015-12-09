@@ -2,8 +2,8 @@
 	
 	$_uname = "isb13142";
 	$_pword = "eiXaim9ee8mi";
-	mysql_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
-	mysql_select_db($_uname) or die(mysql_error());
+	$link = mysqli_connect("devweb2015.cis.strath.ac.uk", $_uname, $_pword);
+	mysqli_select_db($link, $_uname) or die(mysql_error());
 	
 	$qArray = json_decode(str_replace('\\', '', $_POST['questions']));
 
@@ -22,16 +22,16 @@
 	
 	$queryi = "SELECT userID FROM USERS WHERE email ='" . $authorEmail . "';"; 
 
-	$uID = (integer)(mysql_query($queryi) or die(mysql_error()));
+	$uID = (integer)(mysqli_query($link, $queryi) or die(mysql_error()));
 
 	$query = sprintf("INSERT INTO QUESTS (questName, createdBy) VALUES('%s', %u) ",
-		mysql_real_escape_string($quizTitle),
+		mysqli_real_escape_string($link, $quizTitle),
 		$uID
 	) or die(mysql_error());
 	
-	mysql_query($query) or die(mysql_error()); 
+	mysqli_query($link, $query) or die(mysql_error()); 
 	
-	$qID = mysql_insert_id();
+	$qID = mysqli_insert_id($link) or die(mysql_error());
 	
 	foreach($qArray as $q){
 		$type = $q[0];
@@ -43,12 +43,13 @@
 		
 		$query = sprintf("INSERT INTO QUESTIONS (questionnaireID, questionType, question, options) VALUES(%u, '%s', '%s', '%s') ",
 			$qID,
-			mysql_real_escape_string($type),
-			mysql_real_escape_string($data),
-			mysql_real_escape_string($options)
+			mysqli_real_escape_string($link, $type),
+			mysqli_real_escape_string($link, $data),
+			mysqli_real_escape_string($link, $options)
 		) or die(mysql_error());
 		
-		mysql_query($query) or die(mysql_error()); 
+		mysqli_query($link, $query) or die(mysql_error());
+		echo "success"; 
 	}
 	
 ?>

@@ -6,12 +6,16 @@ function doAjax(email) {
 	$.ajax(
 	{
 		type : 'POST',
-		url : 'php/checkUser.php',
+		url : './php/checkUser.php',
 		data: { userEmail : email },
 		success: function(response){
 			if(response == "true") {
 				/*Email already taken -> write message to errorStr*/
+				
 				errorStr = "Email is reserved!";
+
+
+				/*errorStr was produced -> display it*/
 			} else {
 				/*Otherwise -> clear errorStr*/
 				errorStr = "";

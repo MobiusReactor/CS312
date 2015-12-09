@@ -1,11 +1,57 @@
 <?php include 'php/header.php'; ?>
+	<!-- Modal -->
+	<div class="modal fade" id="enterMult" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Write options for your question</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="container-fluid" id="modalOptions"></div>
+					</div>
+					<div class='row' id="options">
+						<button class="btn btn-primary" type="button" onclick="addOption()">Add Option</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions()">
+						Submit
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <script>
+
+	$(document.body).on('hidden.bs.modal', '.modal', function () {
+		alert("Ad");
+    		$(this).removeData('bs.modal');
+	});
 	
 	var qArray = new Array();
 
+	function addOption() {
+		var ni = document.getElementById('modalOptions');
+		var numberOfElements = ni.childNodes.length;
+		var newOpt = document.createElement('div');
+		newOpt.innerHTML = 	'<div class="form-group">' +
+						'<label for="question">Option ' +(numberOfElements+1)+ '</label>' +
+						'<div class="row">' +
+							'<div class="col-md-11">' +
+								'<input type="text" class="form-control optionAnswer">' +
+						'</div><div class="col-md-1">' +
+						'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteOption('+numberOfElements+')">' + 
+						'Delete</button></div></div>' +
+					'</div>';
+		ni.appendChild(newOpt);
+	}
+
 	function addQuestion(type){
 		var ni = document.getElementById('optionList');
+		var numberOfElements = ni.childNodes.length;
 		
 		// actual quiz options would nominally go here, should probs
 		// split into classes or something for ease of addition.
@@ -16,25 +62,42 @@
 		if(type == "text"){
 			newOpt.innerHTML = 	'<div class="form-group">' +
 							'<label for="question">Text question name:</label>' +
+							'<div class="row">' +
+							'<div class="col-md-11">' +
 							'<input type="text" class="form-control" id="questionName">' +
+							'</div><div class="col-md-1">' +
+							'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
+							'Delete</button></div></div>' +
 						'</div>';
 
 		} else if(type == "mult"){
 			newOpt.innerHTML = 	'<div class="form-group">' +
 							'<label for="question">Multiple choice question name:</label>' +
-							'<input type="text" class="form-control" id="questionName">' +
-
-							'<label for="question">Option (seperated by semicolons eg favourite colours: "red;blue;orange"):</label>' +
-							'<input type="text" class="form-control" id="questionOpts">' +
+							'<div class="row">' +
+								'<div class="col-md-11">' +
+									'<input type="text" class="form-control" id="questionName">' +
+								'</div><div class="col-md-1">' +
+										'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
+							'Delete</button></div></div>' +
+							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
+							'data-target="#enterMult">Configure Options</button>' +
+							//'<label for="question">Option (seperated by semicolons eg favourite colours: "red;blue;orange"):</label>' +
+							'<input type="hidden" class="form-control" id="questionOpts">' +
 						'</div>';
 
 		} else if(type == "radio"){
 			newOpt.innerHTML = 	'<div class="form-group">' +
 							'<label for="question">Radio button question name:</label>' +
+							'<div class="row">' +
+							'<div class="col-md-11">' +
 							'<input type="text" class="form-control" id="questionName">' +
-
-							'<label for="question">Option (seperated by semicolons eg favourite colour: "red;blue;orange"):</label>' +
-							'<input type="text" class="form-control" id="questionOpts">' +
+							'</div><div class="col-md-1">' +
+							'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
+							'Delete</button></div></div>' +
+							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
+							'data-target="#enterMult">Configure Options</button>' +
+							//'<label for="question">Option (seperated by semicolons eg favourite colours: "red;blue;orange"):</label>' +
+							'<input type="hidden" class="form-control" id="questionOpts">' +
 						'</div>';
 
 		}
@@ -42,6 +105,30 @@
 		newOpt.innerHTML = newOpt.innerHTML + '<hr>';
 
 		ni.appendChild(newOpt);
+	}
+
+	function deleteEntry(entry) {
+		var ni = document.getElementById('optionList');
+		ni.removeChild(ni.childNodes[entry]);
+	}
+
+	function deleteOption(entry) {
+		var ni = document.getElementById('modalOptions');
+		ni.removeChild(ni.childNodes[entry]);
+	}
+
+	function sendOptions() {
+		var answers = document.getElementsByClassName('optionAnswer');
+		var ni = document.getElementById("optionList");
+		var hidden = ni.lastChild.firstChild.lastChild;
+
+		/*Now let's loop through modal options*/
+		var str = "";
+		for(var i = 0; i < answers.length; i++) {
+			str += answers[i].value + ";";
+		}
+		str = str.substring(0, str.length - 1);
+		hidden.setAttribute('value', str);
 	}
 	
 	function validateEntry(author){
@@ -98,8 +185,10 @@
 				type:'POST',
 				url:'php/submitquiz.php',
 				data:{questions:sArray},
-				success: function(data){
-				}
+				success: function(response){
+					alert(response);
+				},
+				async: false
 			});
 
 			window.location.href = "mquiz.php";

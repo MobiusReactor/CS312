@@ -18,7 +18,7 @@
 	
 			$query = "SELECT * FROM QUESTS q, USERS u WHERE u.email = \"" . $_SESSION["email"] . "\" AND u.userID = q.createdBy;"; 
 
-			$result = mysqli_query($link, $query) or die(mysql_error());
+			$result = mysqli_query($link, $query) or die(mysqli_error());
 				
 			echo "<h2>LIST OF YOUR QUESTIONAIRES:</h2>";
 

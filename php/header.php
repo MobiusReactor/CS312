@@ -40,14 +40,7 @@
 	</head>
 
 	<body>
-
-		<div class="row">
-			<div class="col-sm-9">
-				<img src="img/logo.jpg" class="img-rounded" alt="Cinque Terre" width="204" height="166">
-			</div>
-		</div>
-
-
+	
 		<nav class="navbar navbar-default">
 		
 			<div class="container-fluid">
