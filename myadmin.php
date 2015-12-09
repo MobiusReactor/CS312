@@ -39,7 +39,7 @@ function deleteRow(id) {
       }
     });
   });
-  $(document).on('click', 'button.btn', function () { // <-- changes
+  $(document).on('click', 'button.del', function () { // <-- changes
      //alert("You are about to delete user!");
      var $row = $(this).closest("tr");        // Finds the closest row <tr> 
      var $id = $row.find("td:nth-child(1)").text();  // Finds the 1st <td> element;
@@ -95,7 +95,8 @@ function deleteRow(id) {
                     <td>$row[1]</td>
                     <td>$row[2]</td>
                     <td>
-                          <button type=\"button\" class=\"btn btn-xs btn-danger pull-right\">Delete</button>
+                          <button type=\"button\" class=\"btn btn-xs btn-danger pull-right del\">
+                                  Delete</button>
                     </td>
                   </tr>";
           }  

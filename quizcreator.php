@@ -26,15 +26,14 @@
 
 <script>
 
-	$(document.body).on('hidden.bs.modal', '.modal', function () {
-		alert("Ad");
-    		$(this).removeData('bs.modal');
-	});
+	/*$(document.body).on('hidden.bs.modal', '.modal', function () {
+    		$(".modal-body").html("<div class='row'><div class='container-fluid' id='modalOptions'></div></div><div class='row' id='options'><button class='btn btn-primary' type='button' onclick='addOption()'>Add Option</button></div>");
+	});*/
 	
 	var qArray = new Array();
 
-	function addOption() {
-		var ni = document.getElementById('modalOptions');
+	function addOption(index) {
+		var ni = document.getElementById('modalOptions'+index);
 		var numberOfElements = ni.childNodes.length;
 		var newOpt = document.createElement('div');
 		newOpt.innerHTML = 	'<div class="form-group">' +
@@ -80,10 +79,28 @@
 										'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
 							'Delete</button></div></div>' +
 							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
-							'data-target="#enterMult">Configure Options</button>' +
+							'data-target="#enterMult'+numberOfElements+'">Configure Options</button>' +
 							//'<label for="question">Option (seperated by semicolons eg favourite colours: "red;blue;orange"):</label>' +
 							'<input type="hidden" class="form-control" id="questionOpts">' +
-						'</div>';
+						'</div>' + 
+			'<div class="modal fade" id="enterMult'+numberOfElements+'" role="dialog">' +
+				'<div class="modal-dialog modal-lg">' +
+					'<div class="modal-content">' +
+						'<div class="modal-header">' +
+							'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+							'<h4 class="modal-title">Write options for your question</h4>' +	
+						'</div>' +
+						'<div class="modal-body">' +
+						'<div class="row"><div class="container-fluid" id="modalOptions'+numberOfElements+'"></div></div>' +
+						'<div class="row" id="options">' +
+							'<button class="btn btn-primary" type="button" onclick="addOption('+numberOfElements+')">Add Option</button>' +
+						'</div>' +
+						'<div class="modal-footer">' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions()">Submit</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+			'</div>';
 
 		} else if(type == "radio"){
 			newOpt.innerHTML = 	'<div class="form-group">' +
@@ -113,7 +130,7 @@
 	}
 
 	function deleteOption(entry) {
-		var ni = document.getElementById('modalOptions');
+		var ni = document.getElementById('modalOptions'+entry);
 		ni.removeChild(ni.childNodes[entry]);
 	}
 

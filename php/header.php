@@ -23,19 +23,18 @@
 	<head>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel='stylesheet' href='css/bootstrap.css'>
+		<link rel='stylesheet' href='css/datepicker.css'>		
+		<link rel='stylesheet' href='css/styles.css'>
 	
 		<!-- Latest compiled JQuery -->
 		<script src='js/jquery-1.11.3.min.js'></script>
 
 		<!-- Latest compiled JavaScript -->
 		<script src='js/bootstrap.js'></script>
-
-		<!-- Latest compiled and minified CSS -->
-		<link rel='stylesheet' href='css/bootstrap.css'>
-
-
-		
-		<link rel='stylesheet' href='css/styles.css'>
+		<script src='js/bootstrap-datepicker.js'></script>
 		
 	</head>
 

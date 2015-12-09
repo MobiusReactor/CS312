@@ -54,10 +54,30 @@
 				<input name="reg_pwordc" type="password" class="form-control" id="pwdc" onblur="validatePwdc()">
 				<span id="pwdcStatus"></span>
 			</div>
+			<div class="form-group" id="pwdcDiv">
+				<label for="pwdc">Date of Birth:</label>
+				<input type="text" id="datepicker" name="dateOfBirth">
+				<span id="pwdcStatus"></span>
+			</div>
 			<button type="submit" class="btn btn-default">Submit Registration</button>
 		</form>	
 	</div>
 </div>
+
+<script>
+$(function(){
+
+$('#datepicker').datepicker({
+    
+	defaultDate: '01/01/1977',
+	startDate: '01/01/1900',
+	endDate: '01/01/2010', 
+	autoclose: true,
+
+});
+
+});
+</script>
 
 <?php include 'php/footer.php'; ?>
 

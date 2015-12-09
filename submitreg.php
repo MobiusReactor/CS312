@@ -37,6 +37,7 @@
 			$query = sprintf("INSERT INTO USERS (email, password) VALUES('%s', '%s') ",
 				mysqli_real_escape_string($link, $_POST["reg_email"]),
 				mysqli_real_escape_string($link, $_POST["reg_pwordc"])
+				//mysqli_real_escape_string($link, $_POST["dateOfBirth"])
 			) or die(mysql_error());
 			
 			

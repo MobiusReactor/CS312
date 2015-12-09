@@ -20,13 +20,13 @@
 		}
 	}
 	
-	$queryi = "SELECT userID FROM USERS WHERE email ='" . $authorEmail . "';"; 
-
-	$uID = (integer)(mysqli_query($link, $queryi) or die(mysql_error()));
-
+	$queryi = "SELECT userID FROM USERS WHERE email = '$authorEmail'"; 
+	
+	$uID = mysqli_query($link, $queryi) or die(mysql_error());
+	$uID = mysqli_fetch_array($uID);
 	$query = sprintf("INSERT INTO QUESTS (questName, createdBy) VALUES('%s', %u) ",
 		mysqli_real_escape_string($link, $quizTitle),
-		$uID
+		$uID['userID']
 	) or die(mysql_error());
 	
 	mysqli_query($link, $query) or die(mysql_error()); 
