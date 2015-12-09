@@ -1,5 +1,5 @@
 <?php
-	include "php/getBasicData.php";
+	include "php/dbfetcher.php";
 	/**
 	 * This piece of code is dealing with
 	 * user authentication processes:

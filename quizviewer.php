@@ -32,6 +32,84 @@
 
 ?>
 
+<script>
+	var qArray = new Array();
+	function validateEntry(author, quizID){
+		var aList = document.getElementsByName('answer');
+		var valid = true;
+		
+		
+		for(var i = 0; i < aList.length; i++){
+			var cQuest = aList[i];
+			var type = cQuest.getAttribute('type');
+			//alert(type);
+			var uSpec = cQuest.value;
+			
+			
+			if(type == "title") {
+				var qName = uSpec[0].value;
+				if(qName == ""){
+					valid = false;
+					break;
+				} else {
+					qArray.push([type, qName]);
+				}
+			} else if(type == "text") {
+				/*input type -> text*/
+				var qName = uSpec;
+				if(qName == ""){
+					valid = false;
+					break;
+				} else {
+					qArray.push([type, qName]);
+				}
+			} else if(type == "checkbox" || type == "radio"){
+				var qName = uSpec;
+				
+				//var qOpt = uSpec.value;
+				
+				if(qName == ""){
+					valid = false;
+					break;
+				} else {
+					if(cQuest.checked){
+						qArray.push([type, qName]);
+					}
+				}
+			}
+			
+			//alert(cQuest.getElementsByTagName('input')[0]);
+		}
+		
+		
+		if(valid){
+
+			qArray.push(["author", author]);
+			qArray.push(["quizID", quizID]);
+			
+			var sArray = JSON.stringify(qArray);
+			
+			$.ajax(
+			{
+				type:'POST',
+				url:'php/submitanswer.php',
+				data:{ answers:sArray },
+				success: function(response){
+					alert(response);
+				},
+				async: false
+			});
+
+			window.location.href = "mquiz.php";
+			
+		} else {
+			alert("One or more fields is not set, please ensure all fields selected have text.");
+		}
+		
+		//header("refresh:0.1;url=quizcreator.php");
+	}
+</script>
+
 <div class="container">
 	<div class="jumbotron">
 		<div class="row">
@@ -51,12 +129,12 @@
 
 			while($row = mysqli_fetch_array($result)){
 
-				echo '<div class="form-group" name="question" type="title">';
+				echo '<div class="form-group" name="atsakymas" type="title">';
 				echo '	<div>';
 				echo '		<label for="question">' . $row["question"] . '</label>';
 				
 				if($row["questionType"] == "text"){
-					echo '		<input type="text" class="form-control" id="question">';
+					echo '		<input type="text" class="form-control" id="question" name="answer">';
 				} else if($row["questionType"] == "radio"){
 					$opt = explode(";", $row["options"]);
 					echo '<br>';
@@ -65,7 +143,8 @@
 						$index = $index + 1;
 						
 						echo '<label class="radio-inline">';
-						echo '	<input type="radio" name="inlineRadioOptions" id="inlineRadio" value="' . $index . '"> ' . $v;
+						//inlineRadioOptions
+						echo '	<input type="radio" name="answer" id="inlineRadio" value="' . $v . '"> ' . $v;
 						echo '</label>';
 						
 						//echo '<input id="question" class="form-group" value="' . $index . '" type="checkbox">' . $v . '</input>';
@@ -77,9 +156,9 @@
 					$index = 0;
 					foreach($opt as $v){
 						$index = $index + 1;
-						
+						//inlineCheckOptions
 						echo '<label class="checkbox-inline">';
-						echo '	<input type="checkbox" name="inlineCheckOptions" id="inlineCheckbox" value="' . $index . '"> ' . $v;
+						echo '	<input type="checkbox" name="answer" id="inlineCheckbox" value="' . $v . '"> ' . $v;
 						echo '</label>';
 						
 						//echo '<input id="question" class="form-group" value="' . $index . '" type="checkbox">' . $v . '</input>';
@@ -93,7 +172,7 @@
 		?>
 
 		<?php
-			echo '<button onclick="validateEntry(\'' . $_SESSION["email"] . '\')" type="submit" class="btn btn-default">Submit Quiz</button>';
+			echo '<button onclick="validateEntry(\'' . $_SESSION["email"] . '\', \''.$qID.'\')" type="submit" class="btn btn-default">Submit Quiz</button>';
 		?>
 
 		

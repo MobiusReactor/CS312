@@ -11,8 +11,10 @@ function deleteRow(id) {
     data: { userId : id },
     success: function(response){
       if(response == "true") {
+        alert(response);
         success = true;
       } else {
+        alert(response);
         success = false;
       }
     },
@@ -23,19 +25,27 @@ function deleteRow(id) {
 
   $(function () {
 
-    $(".user, .quiz").hide();
+    $(".user, .quiz, .ans, .quest").hide();
     
-    $(".link1, .link2").bind("click", function () {
+    $(".link1, .link2, .link3, .link4").bind("click", function () {
 
-      $(".user, .quiz").hide();        
-        
+      $(".user, .quiz, .ans, .quest").hide();        
+
       if ($(this).attr("class") == "link1")
       {
         $(".user").show();
       }
-      else 
+      if($(this).attr("class") == "link2")
       { 
         $(".quiz").show();
+      }
+      if($(this).attr("class") == "link3")
+      {
+        $(".ans").show();
+      }
+      if($(this).attr("class") == "link4")
+      {
+        $(".quest").show();
       }
     });
   });
@@ -55,27 +65,50 @@ function deleteRow(id) {
 </script>
 <div class="container-fluid" style="margin-left:20%; margin-right:20%">
   <div class="row">
-  <a href="#" class="link1">
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-body"  style="background-color:#5cb85c" align="center">
-          <h1 style="color:white"> Users </h1>
-          <h2 style="color:white"> 9000 </h2>
-        </div>
+    <div class="col-md-3">
+      <div class="panel panel-default" align="center">
+        <a href="#" class="link1" style="text-decoration:none;">
+          <div class="panel-body"  style="background-color:#5cb85c">
+            <h1 style="color:white"> Users </h1>
+            <h2 style="color:white"> <?php echo getCount("USERS");?> </h2>
+          </div>
+        </a>
       </div>
     </div>
-    </a>
     <!-- Modal Look up -->
-    <a href="#" class="link2">
-    <div class="col-md-6" >
+    
+    <div class="col-md-3" >
       <div class="panel panel-default"  align="center">
-        <div class="panel-body"  style="background-color:#d9534f">
-          <h1 style="color:white"> Quizes </h1>
-          <h2 style="color:white"> 9000 </h2>
+        <a href="#" class="link2" style="text-decoration:none;">
+          <div class="panel-body"  style="background-color:#d9534f">
+            <h1 style="color:white"> Quizes </h1>
+            <h2 style="color:white"> <?php echo getCount("QUESTS");?> </h2>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-3" >
+        <div class="panel panel-default">
+          <a href="#" class="link3" style="text-decoration:none;">
+            <div class="panel-body"  style="background-color:#5cb85c" align="center">
+              <h1 style="color:white"> Answers </h1>
+              <h2 style="color:white"> <?php echo getCount("ANSWERS");?> </h2>
+            </div>
+          </a>
         </div>
       </div>
     </div>
-    </a>
+    <div class="col-md-3" >
+      <div class="panel panel-default"  align="center">
+        <a href="#" class="link4" style="text-decoration:none;">
+          <div class="panel-body"  style="background-color:#d9534f">
+            <h1 style="color:white"> Questions </h1>
+            <h2 style="color:white"> <?php echo getCount("QUESTIONS");?> </h2>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
   <div class="row user">
     <table id="choose-address-table" class="table table-condensed">
@@ -122,6 +155,57 @@ function deleteRow(id) {
                     <td>$row[1]</td>
                     <td>$row[2]</td>
                     <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right\">Delete</button></td>
+                  </tr>";
+          }  
+        }
+      ?>
+
+  </div> 
+  <div class="row ans">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Answered By </th>
+          <th>Question ID</th>
+          <th>Answer</th>
+        </tr>
+      </thead>
+      <?php
+        $result = getBasicData(array("answerID", "answeredBy", "questionID", "answer"), "ANSWERS");
+        if(mysqli_num_rows($result) > 0) {
+          while($row = mysqli_fetch_array($result)){
+            echo "<tr>
+                    <td>$row[0]</td>
+                    <td>$row[1]</td>
+                    <td>$row[2]</td>
+                    <td>$row[3]</td>
+                  </tr>";
+          }  
+        }
+      ?>
+  </div> 
+  <div class="row quest">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Question ID</th>
+          <th>Questionnaire ID </th>
+          <th>Question Type</th>
+          <th>Question</th>
+          <th>Options </th>
+        </tr>
+      </thead>
+      <?php
+        $result = getBasicData(array("questionID", "questionnaireID", "questionType", "question", "options"), "QUESTIONS");
+        if(mysqli_num_rows($result) > 0) {
+          while($row = mysqli_fetch_array($result)){
+            echo "<tr>
+                    <td>$row[0]</td>
+                    <td>$row[1]</td>
+                    <td>$row[2]</td>
+                    <td>$row[3]</td>
+                    <td>$row[4]</td>
                   </tr>";
           }  
         }

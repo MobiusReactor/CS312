@@ -11,31 +11,35 @@
 	$_pword = "12345";
 	$_db = "SoEDB";
 	*/
-	$conn = mysql_connect($_sname, $_uname, $_pword);
-	mysql_select_db($_db) or die(mysql_error());
+	$conn = mysqli_connect($_sname, $_uname, $_pword);
+	mysqli_select_db($conn, $_db) or die(mysql_error());
 
 	
 	echo "Connected to MySQL<br/>";
 	echo "Connected to Database<br/>";
 	
 	$fKey = "SET FOREIGN_KEY_CHECKS=0";
-	mysql_query($fKey) or die(mysql_error());
+	mysqli_query($conn, $fKey) or die(mysql_error());
 	
 	// Need to kill tables first to avoid conflicts
 	$killUsers = "DROP TABLE IF EXISTS USERS";
-	mysql_query($killUsers) or die(mysql_error());
+	mysqli_query($conn, $killUsers) or die(mysql_error());
 	echo "User table dropped<br/>";
 
 	$killQuests = "DROP TABLE IF EXISTS QUESTS";
-	mysql_query($killQuests) or die(mysql_error());
+	mysqli_query($conn, $killQuests) or die(mysql_error());
 	echo "User table dropped<br/>";
 	
 	$killQuestions = "DROP TABLE IF EXISTS QUESTIONS";
-	mysql_query($killQuestions) or die(mysql_error());
+	mysqli_query($conn, $killQuestions) or die(mysql_error());
+	echo "User table dropped<br/>";
+
+	$killQuestions = "DROP TABLE IF EXISTS ANSWERS";
+	mysqli_query($conn, $killQuestions) or die(mysql_error());
 	echo "User table dropped<br/>";
 	
 	$fKey = "SET FOREIGN_KEY_CHECKS=1";
-	mysql_query($fKey) or die(mysql_error());
+	mysqli_query($conn, $fKey) or die(mysql_error());
 
 
 	
@@ -47,7 +51,7 @@
 				password VARCHAR(30) NOT NULL,
 				dateOfBirth DATETIME			
 			)";
-	mysql_query($createUsers) or die(mysql_error());
+	mysqli_query($conn, $createUsers) or die(mysql_error());
 	echo "Table for users created!<br/>";
 
 	//create table for QUESTIONNAIRES
@@ -58,7 +62,7 @@
 				createdBy INT NOT NULL,				
 				FOREIGN KEY(createdBy) REFERENCES USERS(userID)
 			)";
-	mysql_query($createQuests) or die(mysql_error());
+	mysqli_query($conn, $createQuests) or die(mysql_error());
 	echo "Table for Questionnaires created!<br/>";
 
 	//create table for QUESTIONS
@@ -71,6 +75,18 @@
 				PRIMARY KEY(questionID),
 				FOREIGN KEY(questionnaireID) REFERENCES QUESTS(questID)  
 			)";
-	mysql_query($createQuestions) or die(mysql_error());
+
+	//create table for ANSWERS
+	$createAnswers = "CREATE TABLE ANSWERS(
+				answerID INT NOT NULL AUTO_INCREMENT,
+				answeredBy INT NOT NULL,
+				questionID INT NOT NULL,
+				answer VARCHAR(100) NOT NULL,
+				FOREIGN KEY(questionID) REFERENCES QUESTIONS(questionID),
+				FOREIGN KEY(answeredBy) REFERENCES USERS(userID)
+	)";
+	mysqli_query($conn, $createQuestions) or die(mysqli_error($conn));
+	mysqli_query($conn, $createAnswers) or die(mysqli_error($conn));
+
 	echo "Table for Questions created!<br/>";
 ?>

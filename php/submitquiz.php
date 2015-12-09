@@ -49,7 +49,6 @@
 		) or die(mysql_error());
 		
 		mysqli_query($link, $query) or die(mysql_error());
-		echo "success"; 
 	}
 	
 ?>

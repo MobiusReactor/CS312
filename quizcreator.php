@@ -115,7 +115,25 @@
 							'data-target="#enterMult">Configure Options</button>' +
 							//'<label for="question">Option (seperated by semicolons eg favourite colours: "red;blue;orange"):</label>' +
 							'<input type="hidden" class="form-control" id="questionOpts">' +
-						'</div>';
+						'</div>' + 
+			'<div class="modal fade" id="enterMult'+numberOfElements+'" role="dialog">' +
+				'<div class="modal-dialog modal-lg">' +
+					'<div class="modal-content">' +
+						'<div class="modal-header">' +
+							'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+							'<h4 class="modal-title">Write options for your question</h4>' +	
+						'</div>' +
+						'<div class="modal-body">' +
+						'<div class="row"><div class="container-fluid" id="modalOptions'+numberOfElements+'"></div></div>' +
+						'<div class="row" id="options">' +
+							'<button class="btn btn-primary" type="button" onclick="addOption('+numberOfElements+')">Add Option</button>' +
+						'</div>' +
+						'<div class="modal-footer">' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions()">Submit</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+			'</div>';
 
 		}
 		
@@ -201,7 +219,7 @@
 			{
 				type:'POST',
 				url:'php/submitquiz.php',
-				data:{questions:sArray},
+				data:{ questions:sArray },
 				success: function(response){
 					alert(response);
 				},

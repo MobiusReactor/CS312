@@ -40,25 +40,25 @@
 		</script>
 		<form role="form" method="post" action="submitreg.php">
 			<div class="form-group" id="emailDiv">
-				<label for="email">Email address:</label>
+				<label for="email">Email address*:</label>
 				<input name="reg_email" type="email" class="form-control" id="email" onblur="validateEmail()">
 				<span id="emailStatus"></span>
 			</div>
+			<div class="form-group">
+				<label for="dob">Date of Birth:</label>
+				<input type="text" class="form-control" id="datepicker" name="dateOfBirth">
+			</div>
 			<div class="form-group" id="pwdDiv">
-				<label for="pwd">Choose a password:</label>
+				<label for="pwd">Choose a password*:</label>
 				<input name="reg_pword" type="password" class="form-control" id="pwd" onblur="validatePwd()">
 				<span id="pwdStatus"></span>
 			</div>
 			<div class="form-group" id="pwdcDiv">
-				<label for="pwdc">Confirm your password:</label>
+				<label for="pwdc">Confirm your password*:</label>
 				<input name="reg_pwordc" type="password" class="form-control" id="pwdc" onblur="validatePwdc()">
 				<span id="pwdcStatus"></span>
 			</div>
-			<div class="form-group" id="pwdcDiv">
-				<label for="pwdc">Date of Birth:</label>
-				<input type="text" id="datepicker" name="dateOfBirth">
-				<span id="pwdcStatus"></span>
-			</div>
+
 			<button type="submit" class="btn btn-default">Submit Registration</button>
 		</form>	
 	</div>
