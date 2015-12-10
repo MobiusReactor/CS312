@@ -48,7 +48,7 @@
 				userID INT NOT NULL AUTO_INCREMENT,
 				PRIMARY KEY(userID),
 				email VARCHAR(30) NOT NULL,
-				password VARCHAR(30) NOT NULL,
+				password VARCHAR(60) NOT NULL,
 				dateOfBirth DATETIME,
 				isAdmin BOOLEAN DEFAULT FALSE		
 			)";
@@ -92,8 +92,11 @@
 	mysqli_query($conn, $createAnswers) or die(mysqli_error($conn));
 	echo "Table for Answers created!<br/>";
 
+
+	$pass = password_hash("12345", PASSWORD_BCRYPT);
+
 	$createAdmin = "INSERT INTO USERS (email, password, isAdmin)
-		VALUES ('aaa@aaa.aaa', '12345', TRUE);";
+		VALUES ('aaa@aaa.aaa', '".$pass."', TRUE);";
 	mysqli_query($conn, $createAdmin) or die(mysqli_error($conn));
 	echo "Admin created!<br/>";	
 

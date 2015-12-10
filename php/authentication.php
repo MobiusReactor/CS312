@@ -33,26 +33,37 @@
 	if($login) {
 		/*user has tried to authenticate -> compare his input with the input in Database*/
 		$result = getBasicData(
-				array("email", "password"),
+				array("email", "password", "isAdmin"),
 				"USERS",
 				array(
-					"email"=>$email,
-					"password"=>$password
+					"email"=>$email
 				)
 			);
 		if (mysqli_num_rows($result) == 1) {
 			/*email/password pair is found -> log user in*/
+			
 			$row = mysqli_fetch_assoc($result);
-			$_SESSION['isLogged'] = true;
-			$_SESSION['email'] = $email;
-			if(isset($_POST['rememberMe'])) {
-				/*user checked the 'Remember Me' box -> set cookies*/
-				$cookieEmailN = "email";
-				$cookieEmailV = $_POST['email'];
-				$cookiePwdN = "password";
-				$cookiePwdV = $_POST['password'];
-				setcookie($cookieEmailN, $cookieEmailV, time() + (86400 * 30), "/");
-				setcookie($cookiePwdN, $cookiePwdV, time() + (86400 * 30), "/");
+			
+			if (password_verify($password, $row['password'])){
+				$_SESSION['isLogged'] = true;
+				$_SESSION['email'] = $email;
+
+				if ($row["isAdmin"]=='1') {
+					$_SESSION['admin'] = true;
+				}
+
+				if(isset($_POST['rememberMe'])) {
+					/*user checked the 'Remember Me' box -> set cookies*/
+					$cookieEmailN = "email";
+					$cookieEmailV = $_POST['email'];
+					$cookiePwdN = "password";
+					$cookiePwdV = $_POST['password'];
+					setcookie($cookieEmailN, $cookieEmailV, time() + (86400 * 30), "/");
+					setcookie($cookiePwdN, $cookiePwdV, time() + (86400 * 30), "/");
+				}
+			} else {
+				/*email/password pair is not found -> send user back to login form*/
+				header("refresh:0.1;url=login.php?error=incorrectAuth");
 			}
 		} else {
 			/*email/password pair is not found -> send user back to login form*/

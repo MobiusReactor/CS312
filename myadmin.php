@@ -71,10 +71,10 @@ function deleteRow(id, button) {
         "You are about to delete the " + $bt + " and all data associated with it. Do you want to continue?")
         ){
             if(deleteRow($id, $bt)){
-              alert("Used successfully deleted");
+              alert($bt + " successfully deleted");
               $row.remove();
             }else {
-              alert("User deletion was unsuccessful");
+              alert($bt + " deletion was unsuccessful");
             }
 
      }
@@ -82,156 +82,163 @@ function deleteRow(id, button) {
  });
  
 </script>
-<div class="container-fluid" style="margin-left:20%; margin-right:20%">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="panel panel-default" align="center">
-        <a href="#" class="link1" style="text-decoration:none;">
-          <div class="panel-body"  style="background-color:#7986CB">
-            <h1 style="color:white"> Users </h1>
-            <h2 style="color:white"> <?php echo getCount("USERS");?> </h2>
-          </div>
-        </a>
-      </div>
-    </div>
-    <!-- Modal Look up -->
-    
-    <div class="col-md-3" >
-      <div class="panel panel-default"  align="center">
-        <a href="#" class="link2" style="text-decoration:none;">
-          <div class="panel-body"  style="background-color:#5C6BC0">
-            <h1 style="color:white"> Quizes </h1>
-            <h2 style="color:white"> <?php echo getCount("QUESTS");?> </h2>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div>
-      <div class="col-md-3" >
-        <div class="panel panel-default">
-          <a href="#" class="link3" style="text-decoration:none;">
-            <div class="panel-body"  style="background-color:#3F51B5" align="center">
-              <h1 style="color:white"> Answers </h1>
-              <h2 style="color:white"> <?php echo getCount("ANSWERS");?> </h2>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3" >
-      <div class="panel panel-default"  align="center">
-        <a href="#" class="link4" style="text-decoration:none;">
-          <div class="panel-body"  style="background-color:#3949AB">
-            <h1 style="color:white"> Questions </h1>
-            <h2 style="color:white"> <?php echo getCount("QUESTIONS");?> </h2>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="row user">
-    <table id="choose-address-table" class="table table-condensed">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Email </th>
-          <th>Password</th>
-        </tr>
-      </thead>
-      <?php
-        $result = getBasicData(array("userID", "email", "password"), "USERS");
-        if(mysqli_num_rows($result) > 0) {
-          while($row = mysqli_fetch_array($result)){
-            echo "<tr>
-                    <td>$row[0]</td>
-                    <td>$row[1]</td>
-                    <td>$row[2]</td>
-                    <td>
-                          <button type=\"button\" class=\"btn btn-xs btn-danger pull-right usr\">
-                                  Delete</button>
-                    </td>
-                  </tr>";
-          }  
-        }
-      ?>
-    </table>
-  </div>
-  <div class="row quiz">
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name </th>
-          <th>Created by</th>
-        </tr>
-      </thead>
-      <?php
-        $result = getBasicData(array("questID", "questName", "createdBy"), "QUESTS");
-        if(mysqli_num_rows($result) > 0) {
-          while($row = mysqli_fetch_array($result)){
-            echo "<tr>
-                    <td>$row[0]</td>
-                    <td>$row[1]</td>
-                    <td>$row[2]</td>
-                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right qts\">Delete</button></td>
-                  </tr>";
-          }  
-        }
-      ?>
-    </table>
-  </div> 
-  <div class="row answers">
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Answered By </th>
-          <th>Question ID</th>
-          <th>Answer</th>
-        </tr>
-      </thead>
-      <?php
-        $result = getBasicData(array("answerID", "answeredBy", "questionID", "answer"), "ANSWERS");
-        if(mysqli_num_rows($result) > 0) {
-          while($row = mysqli_fetch_array($result)){
-            echo "<tr>
-                    <td>$row[0]</td>
-                    <td>$row[1]</td>
-                    <td>$row[2]</td>
-                    <td>$row[3]</td>
-                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right ans\">Delete</button></td>
-                  </tr>";
-          }  
-        }
-      ?>
-    </table>
-  </div> 
-  <div class="row quest">
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>Question ID</th>
-          <th>Questionnaire ID </th>
-          <th>Question Type</th>
-          <th>Question</th>
-          <th>Options </th>
-        </tr>
-      </thead>
-      <?php
-        $result = getBasicData(array("questionID", "questionnaireID", "questionType", "question", "options"), "QUESTIONS");
-        if(mysqli_num_rows($result) > 0) {
-          while($row = mysqli_fetch_array($result)){
-            echo "<tr>
-                    <td>$row[0]</td>
-                    <td>$row[1]</td>
-                    <td>$row[2]</td>
-                    <td>$row[3]</td>
-                    <td>$row[4]</td>
-                    <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right qs\">Delete</button></td>
-                  </tr>";
-          }  
-        }
-      ?>
-    </table>
-  </div> 
-</div>
+
+<?php if (isset($_SESSION['admin'])) : ?>
+	<div class="container-fluid" style="margin-left:20%; margin-right:20%">
+	  <div class="row">
+		<div class="col-md-3">
+		  <div class="panel panel-default" align="center">
+			<a href="#" class="link1" style="text-decoration:none;">
+			  <div class="panel-body"  style="background-color:#7986CB">
+			    <h1 style="color:white"> Users </h1>
+			    <h2 style="color:white"> <?php echo getCount("USERS");?> </h2>
+			  </div>
+			</a>
+		  </div>
+		</div>
+		<!-- Modal Look up -->
+	
+		<div class="col-md-3" >
+		  <div class="panel panel-default"  align="center">
+			<a href="#" class="link2" style="text-decoration:none;">
+			  <div class="panel-body"  style="background-color:#5C6BC0">
+			    <h1 style="color:white"> Quizes </h1>
+			    <h2 style="color:white"> <?php echo getCount("QUESTS");?> </h2>
+			  </div>
+			</a>
+		  </div>
+		</div>
+		<div>
+		  <div class="col-md-3" >
+			<div class="panel panel-default">
+			  <a href="#" class="link3" style="text-decoration:none;">
+			    <div class="panel-body"  style="background-color:#3F51B5" align="center">
+			      <h1 style="color:white"> Answers </h1>
+			      <h2 style="color:white"> <?php echo getCount("ANSWERS");?> </h2>
+			    </div>
+			  </a>
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-3" >
+		  <div class="panel panel-default"  align="center">
+			<a href="#" class="link4" style="text-decoration:none;">
+			  <div class="panel-body"  style="background-color:#3949AB">
+			    <h1 style="color:white"> Questions </h1>
+			    <h2 style="color:white"> <?php echo getCount("QUESTIONS");?> </h2>
+			  </div>
+			</a>
+		  </div>
+		</div>
+	  </div>
+	  <div class="row user">
+		<table id="choose-address-table" class="table table-condensed">
+		  <thead>
+			<tr>
+			  <th>ID</th>
+			  <th>Email </th>
+			  <th>Password</th>
+			</tr>
+		  </thead>
+		  <?php
+			$result = getBasicData(array("userID", "email", "password"), "USERS");
+			if(mysqli_num_rows($result) > 0) {
+			  while($row = mysqli_fetch_array($result)){
+			    echo "<tr>
+			            <td>$row[0]</td>
+			            <td>$row[1]</td>
+			            <td>$row[2]</td>
+			            <td>
+			                  <button type=\"button\" class=\"btn btn-xs btn-danger pull-right usr\">
+			                          Delete</button>
+			            </td>
+			          </tr>";
+			  }  
+			}
+		  ?>
+		</table>
+	  </div>
+	  <div class="row quiz">
+		<table class="table table-condensed">
+		  <thead>
+			<tr>
+			  <th>ID</th>
+			  <th>Name </th>
+			  <th>Created by</th>
+			</tr>
+		  </thead>
+		  <?php
+			$result = getBasicData(array("questID", "questName", "createdBy"), "QUESTS");
+			if(mysqli_num_rows($result) > 0) {
+			  while($row = mysqli_fetch_array($result)){
+			    echo "<tr>
+			            <td>$row[0]</td>
+			            <td>$row[1]</td>
+			            <td>$row[2]</td>
+			            <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right qts\">Delete</button></td>
+			          </tr>";
+			  }  
+			}
+		  ?>
+		</table>
+	  </div> 
+	  <div class="row answers">
+		<table class="table table-condensed">
+		  <thead>
+			<tr>
+			  <th>ID</th>
+			  <th>Answered By </th>
+			  <th>Question ID</th>
+			  <th>Answer</th>
+			</tr>
+		  </thead>
+		  <?php
+			$result = getBasicData(array("answerID", "answeredBy", "questionID", "answer"), "ANSWERS");
+			if(mysqli_num_rows($result) > 0) {
+			  while($row = mysqli_fetch_array($result)){
+			    echo "<tr>
+			            <td>$row[0]</td>
+			            <td>$row[1]</td>
+			            <td>$row[2]</td>
+			            <td>$row[3]</td>
+			            <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right ans\">Delete</button></td>
+			          </tr>";
+			  }  
+			}
+		  ?>
+		</table>
+	  </div> 
+	  <div class="row quest">
+		<table class="table table-condensed">
+		  <thead>
+			<tr>
+			  <th>Question ID</th>
+			  <th>Questionnaire ID </th>
+			  <th>Question Type</th>
+			  <th>Question</th>
+			  <th>Options </th>
+			</tr>
+		  </thead>
+		  <?php
+			$result = getBasicData(array("questionID", "questionnaireID", "questionType", "question", "options"), "QUESTIONS");
+			if(mysqli_num_rows($result) > 0) {
+			  while($row = mysqli_fetch_array($result)){
+			    echo "<tr>
+			            <td>$row[0]</td>
+			            <td>$row[1]</td>
+			            <td>$row[2]</td>
+			            <td>$row[3]</td>
+			            <td>$row[4]</td>
+			            <td><button type=\"button\" class=\"btn btn-xs btn-danger pull-right qs\">Delete</button></td>
+			          </tr>";
+			  }  
+			}
+		  ?>
+		</table>
+	  </div> 
+	</div>
+
+<?php else : ?>
+	<p>Error, access denied</p>
+<?php endif; ?>
+

@@ -54,6 +54,10 @@
 								echo "<li><a href='aquiz.php'>All Quizes</a></li>";
 								echo "<li><a href='mquiz.php'>My Quizes</a></li>";
 							}
+							
+							if(isset($_SESSION['admin'])) {
+								echo "<li><a href='myadmin.php'>Admin Panel</a></li>";
+							}
 						?>
 						<li><a href="contact.php">Contact Us</a></li>
 					</ul>
