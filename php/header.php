@@ -43,23 +43,32 @@
 		<nav class="navbar navbar-default" style="margin-bottom: 0;">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.php">CS312 - Quiz</a>
+					
+					<a class="navbar-brand" href="
+					<?php
+						if(!isset($_SESSION['isLogged']))
+							echo 'index.php';
+					?>
+					">CS312 - Quiz</a>
+					
 				</div>
 				
 				<div>
 					<ul class="nav navbar-nav">
-						<li><a href="index.php">Home Page</a></li>
+						
 						<?php
 							if(isset($_SESSION['isLogged'])) {
 								echo "<li><a href='aquiz.php'>All Quizes</a></li>";
 								echo "<li><a href='mquiz.php'>My Quizes</a></li>";
+							} else {
+								echo '<li><a href="contact.php">Contact Us</a></li>';
 							}
 							
-							if(isset($_SESSION['admin'])) {
-								echo "<li><a href='myadmin.php'>Admin Panel</a></li>";
-							}
+							//if(isset($_SESSION['admin'])) {
+							//	echo "<li><a href='myadmin.php'>Admin Panel</a></li>";
+							//}
 						?>
-						<li><a href="contact.php">Contact Us</a></li>
+						
 					</ul>
 			
 					<?php
@@ -72,9 +81,13 @@
 										$email
 								<span class='caret'></span></button>
 								<ul class='dropdown-menu'>
-									<li><a href='index.php?log=out'>Logout</a></li>
-								</ul>
-							</div>";
+								";
+							if(isset($_SESSION['admin'])) {
+								
+								echo "<li><a href='myadmin.php'>Admin Panel</a></li>";
+							}
+							echo "<li><a href='index.php?log=out'>Logout</a></li>
+								</ul></div>";
 						
 						} else {
 							/*user is not logged -> display

@@ -17,7 +17,7 @@
 		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 			<h2>Please Sign In</h2>
 			<hr class="colorgraph">
-			<form role="form" method="post" action="index.php?log=in">
+			<form role="form" method="post" action="mquiz.php?log=in">
 			<div class="form-group">
 				<label for="email">Email address:</label>
 				<input type="email" class="form-control input-lg" id="email" name="email">
