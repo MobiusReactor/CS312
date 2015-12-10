@@ -12,52 +12,62 @@ div.center{
 	text-align: center;
 }
 h1.standout-white{
-	font-family: 'Raleway',sans-serif; 
-	font-size: 62px; 
-	font-weight: 800; 
-	line-height: 72px; 
-	margin: 0 0 24px; 
-	text-align: center; 
+	font-family: 'Raleway',sans-serif;
+	font-size: 62px;
+	font-weight: 800;
+	line-height: 72px;
+	margin: 0 0 24px;
+	text-align: center;
 	text-transform: uppercase;
 	color:white;
 }
 h2.standout-white {
-	font-family: 'Raleway',sans-serif; 
-	font-size: 30px; 
-	font-weight: 800; 
-	line-height: 36px; 
-	margin: 0 0 24px; 
-	text-align: center; 
+	font-family: 'Raleway',sans-serif;
+	font-size: 30px;
+	font-weight: 800;
+	line-height: 36px;
+	margin: 0 0 24px;
+	text-align: center;
 	text-transform: uppercase;
-	color:white; 
+	color:white;
 }
 h1.standout-black{
-	font-family: 'Raleway',sans-serif; 
-	font-size: 62px; 
-	font-weight: 800; 
-	line-height: 72px; 
-	margin: 0 0 24px; 
-	text-align: center; 
+	font-family: 'Raleway',sans-serif;
+	font-size: 62px;
+	font-weight: 800;
+	line-height: 72px;
+	margin: 0 0 24px;
+	text-align: center;
 	text-transform: uppercase;
 	color:black;
 }
 h2.standout-black {
-	font-family: 'Raleway',sans-serif; 
-	font-size: 30px; 
-	font-weight: 800; 
-	line-height: 36px; 
-	margin: 0 0 24px; 
-	text-align: center; 
+	font-family: 'Raleway',sans-serif;
+	font-size: 30px;
+	font-weight: 800;
+	line-height: 36px;
+	margin: 0 0 24px;
+	text-align: center;
 	text-transform: uppercase;
-	color:black; 
+	color:black;
 }
-p.standout-black { 
-	color: #black; 
-	font-family: 'Raleway',sans-serif; 
-	font-size: 18px; 
-	font-weight: 500; 
-	line-height: 32px; 
-	margin: 0 0 24px; 
+p.standout-black {
+	color: #black;
+	font-family: 'Raleway',sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 32px;
+	margin: 0 0 24px;
+}
+h2.standout-purple {
+	font-family: 'Raleway',sans-serif;
+	font-size: 30px;
+	font-weight: 800;
+	line-height: 36px;
+	margin: 0 0 24px;
+	text-align: center;
+	text-transform: uppercase;
+	color:#880E4F;
 }
 
 .rightText {
@@ -108,5 +118,3 @@ body {
   text-overflow: ellipsis;
 
 }
-
-
