@@ -35,8 +35,8 @@
 
 				$question_idents = json_encode($question_idents);
 
-				echo "<li><a href='myquizanalysis.php?quizID=".$row['questID']."'
-onlick='showQuizStats(".$question_idents.")'>" . $row["questName"] . "</a></li>";
+				echo "<li><a href='myquizanalysis.php?quizID=".$row['questID']."'";
+				echo " onlick='showQuizStats(".$question_idents.")'>" . $row["questName"] . "</a></li>";
 			}
 
 			echo "</ul>";

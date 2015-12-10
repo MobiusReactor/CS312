@@ -27,11 +27,11 @@ function deleteRow(id, button) {
 
   $(function () {
 
-    $(".user, .quiz, .ans, .quest").hide();
+    $(".user, .quiz, .answers, .quest").hide();
     
     $(".link1, .link2, .link3, .link4").bind("click", function () {
 
-      $(".user, .quiz, .ans, .quest").hide();        
+      $(".user, .quiz, .answers, .quest").hide();        
 
       if ($(this).attr("class") == "link1")
       {
@@ -43,7 +43,7 @@ function deleteRow(id, button) {
       }
       if($(this).attr("class") == "link3")
       {
-        $(".ans").show();
+        $(".answers").show();
       }
       if($(this).attr("class") == "link4")
       {
@@ -51,7 +51,7 @@ function deleteRow(id, button) {
       }
     });
   });
-  $(document).on('click', '.usr, .qts, .ans', function () { // <-- changes
+  $(document).on('click', '.usr, .qts, .ans, .qs', function () { // <-- changes
     if($(this).attr("class").indexOf("usr") > -1){
       var $bt = "user";
     }
@@ -87,7 +87,7 @@ function deleteRow(id, button) {
     <div class="col-md-3">
       <div class="panel panel-default" align="center">
         <a href="#" class="link1" style="text-decoration:none;">
-          <div class="panel-body"  style="background-color:#5cb85c">
+          <div class="panel-body"  style="background-color:#7986CB">
             <h1 style="color:white"> Users </h1>
             <h2 style="color:white"> <?php echo getCount("USERS");?> </h2>
           </div>
@@ -99,7 +99,7 @@ function deleteRow(id, button) {
     <div class="col-md-3" >
       <div class="panel panel-default"  align="center">
         <a href="#" class="link2" style="text-decoration:none;">
-          <div class="panel-body"  style="background-color:#d9534f">
+          <div class="panel-body"  style="background-color:#5C6BC0">
             <h1 style="color:white"> Quizes </h1>
             <h2 style="color:white"> <?php echo getCount("QUESTS");?> </h2>
           </div>
@@ -110,7 +110,7 @@ function deleteRow(id, button) {
       <div class="col-md-3" >
         <div class="panel panel-default">
           <a href="#" class="link3" style="text-decoration:none;">
-            <div class="panel-body"  style="background-color:#5cb85c" align="center">
+            <div class="panel-body"  style="background-color:#3F51B5" align="center">
               <h1 style="color:white"> Answers </h1>
               <h2 style="color:white"> <?php echo getCount("ANSWERS");?> </h2>
             </div>
@@ -121,7 +121,7 @@ function deleteRow(id, button) {
     <div class="col-md-3" >
       <div class="panel panel-default"  align="center">
         <a href="#" class="link4" style="text-decoration:none;">
-          <div class="panel-body"  style="background-color:#d9534f">
+          <div class="panel-body"  style="background-color:#3949AB">
             <h1 style="color:white"> Questions </h1>
             <h2 style="color:white"> <?php echo getCount("QUESTIONS");?> </h2>
           </div>
@@ -180,7 +180,7 @@ function deleteRow(id, button) {
       ?>
     </table>
   </div> 
-  <div class="row ans">
+  <div class="row answers">
     <table class="table table-condensed">
       <thead>
         <tr>

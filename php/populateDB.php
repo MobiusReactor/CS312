@@ -92,5 +92,10 @@
 	mysqli_query($conn, $createAnswers) or die(mysqli_error($conn));
 	echo "Table for Answers created!<br/>";
 
+	$createAdmin = "INSERT INTO USERS (email, password, isAdmin)
+		VALUES ('aaa@aaa.aaa', '12345', TRUE);";
+	mysqli_query($conn, $createAdmin) or die(mysqli_error($conn));
+	echo "Admin created!<br/>";	
+
 	
 ?>

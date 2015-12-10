@@ -109,7 +109,6 @@
 	var qArray = new Array();
 	function validateEntry(author){
 		var ids = jQuery.parseJSON('<?php echo json_encode($question_idents) ?>');
-		alert(ids);
 		var aList = document.getElementsByName('answer');
 		var valid = true;
 		

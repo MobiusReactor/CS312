@@ -14,130 +14,36 @@
 	*
 	*/
 
+	/*The function which adds an option to a modal with specified index*/
 	function addOption(index) {	
 		var ni = document.getElementById('modalOptions'+index);
 		var numberOfElements = ni.childNodes.length;
 		var newOpt = document.createElement('div');
-		newOpt.innerHTML = 	'<div class="form-group">' +
-						'<label for="question">Option ' +(numberOfElements+1)+ '</label>' +
-						'<div class="row">' +
-							'<div class="col-md-11">' +
-								'<input type="text" class="form-control optionAnswer'+index+'">' +
-						'</div><div class="col-md-1">' +
-						'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteOption('+numberOfElements+')">' + 
-						'Delete</button></div></div>' +
+		newOpt.innerHTML = '<div class="form-group">' +
+					'<label for="question">Option ' +(numberOfElements+1)+ '</label>' +
+					'<div class="row">' +
+						'<div class="col-md-11">' +
+							'<input type="text" class="form-control optionAnswer'+index+'">' +
+					'</div><div class="col-md-1">' +
+					'<button type="button" class="btn btn-xs btn-danger pull-right" ' +
+						'onclick="deleteOption('+index+','+numberOfElements+')">Delete</button></div></div>' +
 					'</div>';
 		ni.appendChild(newOpt);
 	}
 
-	function addQuestion(type){
-		var ni = document.getElementById('optionList');
-		var numberOfElements = ni.childNodes.length;
-		// actual quiz options would nominally go here, should probs
-		// split into classes or something for ease of addition.
-		var newOpt = document.createElement('div');
-		newOpt.setAttribute('name', 'question');
-		newOpt.setAttribute('type', type);
-		newOpt.setAttribute('class', 'row');
-		newOpt.setAttribute('id', 'question'+numberOfElements);
-		if(type == "text"){
-			newOpt.innerHTML = 	'<div class="form-group">' +
-							'<label for="question">Text question name:</label>' +
-							'<div class="row">' +
-							'<div class="col-md-11">' +
-							'<input type="text" class="form-control" id="questionName">' +
-							'</div><div class="col-md-1">' +
-							'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
-							'Delete</button></div></div>' +
-						'</div>';
-
-		} else if(type == "mult"){
-			newOpt.innerHTML = 	'<div class="form-group">' +
-							'<label for="question">Multiple choice question name:</label>' +
-							'<div class="row">' +
-								'<div class="col-md-11">' +
-									'<input type="text" class="form-control" id="questionName">' +
-								'</div><div class="col-md-1">' +
-										'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
-							'Delete</button></div></div>' +
-							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
-							'data-target="#enterMult'+numberOfElements+'">Configure Options</button>' +
-							//'<label for="question">Option (seperated by semicolons eg favourite colours: "red;blue;orange"):</label>' +
-							'<input type="hidden" class="form-control" id="questionOpts">' +
-						'</div>' + 
-			'<div class="modal fade" id="enterMult'+numberOfElements+'" role="dialog">' +
-				'<div class="modal-dialog modal-lg">' +
-					'<div class="modal-content">' +
-						'<div class="modal-header">' +
-							'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-							'<h4 class="modal-title">Write options for your question</h4>' +	
-						'</div>' +
-						'<div class="modal-body">' +
-						'<div class="row"><div class="container-fluid" id="modalOptions'+numberOfElements+'"></div></div>' +
-						'<div class="row" id="options">' +
-							'<button class="btn btn-primary" type="button" onclick="addOption('+numberOfElements+')">Add Option</button>' +
-						'</div>' +
-						'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions('+numberOfElements+')">Submit</button>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-			'</div>';
-
-		} else if(type == "radio"){
-			newOpt.innerHTML = 	'<div class="form-group">' +
-							'<label for="question">Radio button question name:</label>' +
-							'<div class="row">' +
-							'<div class="col-md-11">' +
-							'<input type="text" class="form-control" id="questionName">' +
-							'</div><div class="col-md-1">' +
-							'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
-							'Delete</button></div></div>' +
-							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
-							'data-target="#enterMult'+numberOfElements+'">Configure Options</button>' +
-							'<input type="hidden" class="form-control" id="questionOpts">' +
-						'</div>' + 
-			'<div class="modal fade" id="enterMult'+numberOfElements+'" role="dialog">' +
-				'<div class="modal-dialog modal-lg">' +
-					'<div class="modal-content">' +
-						'<div class="modal-header">' +
-							'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-							'<h4 class="modal-title">Write options for your question</h4>' +	
-						'</div>' +
-						'<div class="modal-body">' +
-						'<div class="row"><div class="container-fluid" id="modalOptions'+numberOfElements+'"></div></div>' +
-						'<div class="row" id="options">' +
-							'<button class="btn btn-primary" type="button" ' +
-							'onclick="addOption(' + numberOfElements + ')">Add Option</button>' +
-						'</div>' +
-						'<div class="modal-footer">' +
-							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions('+numberOfElements+')">Submit</button>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-			'</div>';
-
-		}
-		
-		newOpt.innerHTML = newOpt.innerHTML + '<hr>';
-
-		ni.appendChild(newOpt);
+	/*The function which deletes specified option in specified modal*/
+	function deleteOption(modalIndex, optionIndex) {
+		var ni = document.getElementById('modalOptions'+modalIndex);
+		ni.removeChild(ni.childNodes[optionIndex]);
 	}
 
-	function deleteEntry(entry) {
-		var ni = document.getElementById('optionList');
-		//ni.removeChild(ni.childNodes[entry]);
-		ni.removeChild(document.getElementById('question'+entry));
-	}
-
-	function deleteOption(entry) {
-		var ni = document.getElementById('modalOptions'+entry);
-		ni.removeChild(ni.childNodes[entry]);
-	}
-
+	/*The function which sends specified modal options to a hidden field of form with same index*/
 	function sendOptions(index) {
+		/*Get modal fields*/
 		var answers = document.getElementsByClassName('optionAnswer'+index);
 		var ni = document.getElementById("optionList");
+
+		/*Get hidden field*/
 		var hidden = ni.lastChild.firstChild.lastChild;
 
 		/*Now let's loop through modal options*/
@@ -146,9 +52,19 @@
 			str += answers[i].value + ";";
 		}
 		str = str.substring(0, str.length - 1);
+		
+		/*Send values to hidden*/
 		hidden.setAttribute('value', str);
 	}
-	
+
+	/*The function which deletes question at specified index*/
+	function deleteEntry(entry) {
+		var ni = document.getElementById('optionList');
+		ni.removeChild(document.getElementById('question'+entry));
+	}
+
+
+	/*The function which finally submits all questions to script which saves them*/
 	function validateEntry(author){
 		var qList = document.getElementsByName('question');
 		var valid = true;
@@ -215,6 +131,101 @@
 		}
 		
 		//header("refresh:0.1;url=quizcreator.php");
+	}
+
+
+	/*The function which adds new question*/
+	function addQuestion(type){
+		var ni = document.getElementById('optionList');
+		var numberOfElements = ni.childNodes.length;
+		// actual quiz options would nominally go here, should probs
+		// split into classes or something for ease of addition.
+		var newOpt = document.createElement('div');
+		newOpt.setAttribute('name', 'question');
+		newOpt.setAttribute('type', type);
+		newOpt.setAttribute('class', 'row');
+		newOpt.setAttribute('id', 'question'+numberOfElements);
+		if(type == "text"){
+			newOpt.innerHTML = 	'<div class="form-group">' +
+							'<label for="question">Text question name:</label>' +
+							'<div class="row">' +
+							'<div class="col-md-11">' +
+							'<input type="text" class="form-control" id="questionName">' +
+							'</div><div class="col-md-1">' +
+							'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
+							'Delete</button></div></div>' +
+						'</div>';
+
+		} else if(type == "mult"){
+			newOpt.innerHTML = 	'<div class="form-group">' +
+							'<label for="question">Multiple choice question name:</label>' +
+							'<div class="row">' +
+								'<div class="col-md-11">' +
+									'<input type="text" class="form-control" id="questionName">' +
+								'</div><div class="col-md-1">' +
+										'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
+							'Delete</button></div></div>' +
+							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
+							'data-target="#enterMult'+numberOfElements+'">Configure Options</button>' +
+							'<input type="hidden" class="form-control" id="questionOpts">' +
+						'</div>' + 
+			'<div class="modal fade" id="enterMult'+numberOfElements+'" role="dialog">' +
+				'<div class="modal-dialog modal-lg">' +
+					'<div class="modal-content">' +
+						'<div class="modal-header">' +
+							'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+							'<h4 class="modal-title">Write options for your question</h4>' +	
+						'</div>' +
+						'<div class="modal-body">' +
+						'<div class="row"><div class="container-fluid" id="modalOptions'+numberOfElements+'"></div></div>' +
+						'<div class="row" id="options">' +
+							'<button class="btn btn-primary" type="button" onclick="addOption('+numberOfElements+')">Add Option</button>' +
+						'</div>' +
+						'<div class="modal-footer">' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions('+numberOfElements+')">Submit</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+			'</div>';
+
+		} else if(type == "radio"){
+			newOpt.innerHTML = 	'<div class="form-group">' +
+							'<label for="question">Radio button question name:</label>' +
+							'<div class="row">' +
+							'<div class="col-md-11">' +
+							'<input type="text" class="form-control" id="questionName">' +
+							'</div><div class="col-md-1">' +
+							'<button type="button" class="btn btn-xs btn-danger pull-right" onclick="deleteEntry('+numberOfElements+')">' + 
+							'Delete</button></div></div>' +
+							'<button type="button" class="btn btn-info btn-md" data-toggle="modal" ' + 
+							'data-target="#enterMult'+numberOfElements+'">Configure Options</button>' +
+							'<input type="hidden" class="form-control" id="questionOpts">' +
+						'</div>' + 
+			'<div class="modal fade" id="enterMult'+numberOfElements+'" role="dialog">' +
+				'<div class="modal-dialog modal-lg">' +
+					'<div class="modal-content">' +
+						'<div class="modal-header">' +
+							'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+							'<h4 class="modal-title">Write options for your question</h4>' +	
+						'</div>' +
+						'<div class="modal-body">' +
+						'<div class="row"><div class="container-fluid" id="modalOptions'+numberOfElements+'"></div></div>' +
+						'<div class="row" id="options">' +
+							'<button class="btn btn-primary" type="button" ' +
+							'onclick="addOption(' + numberOfElements + ')">Add Option</button>' +
+						'</div>' +
+						'<div class="modal-footer">' +
+							'<button type="button" class="btn btn-default" data-dismiss="modal" onclick="sendOptions('+numberOfElements+')">Submit</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+			'</div>';
+
+		}
+		
+		newOpt.innerHTML = newOpt.innerHTML + '<hr>';
+
+		ni.appendChild(newOpt);
 	}
 </script>
 

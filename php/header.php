@@ -35,13 +35,12 @@
 		<!-- Latest compiled JavaScript -->
 		<script src='js/bootstrap.js'></script>
 		<script src='js/bootstrap-datepicker.js'></script>
-		
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>	
 	</head>
 
 	<body>
 	
-		<nav class="navbar navbar-default">
-		
+		<nav class="navbar navbar-default" style="margin-bottom: 0;">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="index.php">CS312 - Quiz</a>
@@ -86,8 +85,6 @@
 							</ul>";						
 						}
 					?>
-
-
 				</div>
 			</div>
 
