@@ -36,7 +36,7 @@
 	<div class="col-md-10 col-md-offset-1">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title"><strong>Sign up</strong></h3>
+				<h3 class="panel-title"><strong>Sign Up</strong></h3>
 			</div>
 			<div class="panel-body">
 				<hr class="colorgraph"></hr>
