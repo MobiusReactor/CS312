@@ -1,4 +1,10 @@
-<?php $title = "Sign Up"; include 'php/header.php'; ?>
+<?php 
+	$title = "Sign Up"; 
+	include 'php/header.php'; 
+	include "php/recaptchalib.php"; 
+	$secret = "6Lck1hITAAAAAPz7RctuLfmoNeXxBOux5OZkcXfx";
+	$reCaptcha = new ReCaptcha($secret);
+?>
 
 
 <div class="container">
@@ -31,6 +37,17 @@
 				die();
 			}
 			
+			if ($_POST["g-recaptcha-response"]) {
+				$response = $reCaptcha->verifyResponse(
+        			$_SERVER["REMOTE_ADDR"],
+       	 			$_POST["g-recaptcha-response"]
+		    	);
+    		}
+    		
+    		if (!($response != null && $response->success)) {
+	 	 		header("refresh:0.1;url=signup.php?error=captcha");
+				die();
+			}
 			
 			$dobStamp = strtotime($_POST["dateOfBirth"]);
 			//$dobStamp = date("Y-m-d H:i:s", $dobStamp);

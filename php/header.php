@@ -30,6 +30,7 @@
 		<script src='js/bootstrap.js'></script>
 		<script src='js/bootstrap-datepicker.js'></script>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>	
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 
 	<body>

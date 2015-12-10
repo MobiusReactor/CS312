@@ -27,13 +27,18 @@
 							<strong>Error!</strong> Passwords do not match.
 						</div>";
 				break;	
+			case "captcha":
+				echo 	"<div class='alert alert-danger'>
+							<strong>Error!</strong> Captcha verification failed.
+						</div>";
+				break;	
 			default:
 		}
 	}
 	?>
 
 <div class="container" style="margin-top:30px">
-	<div class="col-md-10 col-md-offset-1">
+	<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title"><strong>Sign Up</strong></h3>
@@ -60,6 +65,10 @@
 						<input name="reg_pwordc" type="password" class="form-control" id="pwdc" onblur="validatePwdc()">
 						<span id="pwdcStatus"></span>
 					</div>
+					
+					<label for="recaptcha">Are you a robot?</label>
+					<div class="g-recaptcha" align="center" data-sitekey="6Lck1hITAAAAAIKbv7wouUYeyjhVMbG08WvYgq4J"></div>
+
 					<hr class="colorgraph"></hr>
 					<button type="submit" class="btn btn-lg btn-success btn-block">Submit Registration</button>
 				</form>	
