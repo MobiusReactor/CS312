@@ -119,7 +119,7 @@
 				url:'php/submitquiz.php',
 				data:{ questions:sArray },
 				success: function(response){
-					alert(response);
+
 				},
 				async: false
 			});

@@ -53,12 +53,13 @@
 		$sqlSelect .= " WHERE ";
 		foreach($where as $key => $value){
 			/*separate conditions with AND*/
+
 			$sqlSelect .= ($key." = '".$value."' AND ");
 		}
 		$sqlSelect = substr($sqlSelect, 0, -4);
 	}
 	/*execute the query and return result*/
-	$result = mysqli_query($link, $sqlSelect) or die(mysql_error());
+	$result = mysqli_query($link, $sqlSelect) or die(mysqli_error($link));
 	return $result;
 };
 

@@ -18,7 +18,8 @@ function getBasicData($select, $from, $where = Null){
 	//$_pword = "12345";
 	//$_db = "SoEDB";
 	$link = mysqli_connect($_sname, $_uname, $_pword);
-	mysqli_select_db($link, $_db) or die(mysql_error());
+	echo "asd";
+	mysqli_select_db($link, $_db) or die(mysqli_error($link));
 	
 	/*SELECT...*/
 	$sqlSelect = "SELECT ";
@@ -42,7 +43,9 @@ function getBasicData($select, $from, $where = Null){
 		$sqlSelect = substr($sqlSelect, 0, -4);
 	}
 	/*execute the query and return result*/
-	$result = mysqli_query($link, $sqlSelect) or die(mysql_error());
+	
+	$result = mysqli_query($link, $sqlSelect) or die(mysqli_error($link));
+	
 	return $result;
 };
 

@@ -40,6 +40,8 @@
 		}
 		$data = $q[1];
 		$options = $q[2];
+		$data = str_replace("'", "\'", $data);
+		$options = str_replace("'", "\'", $options);
 		
 		$query = sprintf("INSERT INTO QUESTIONS (questionnaireID, questionType, question, options) VALUES(%u, '%s', '%s', '%s') ",
 			$qID,
