@@ -39,6 +39,7 @@
 				<h3 class="panel-title"><strong>Sign up </strong></h3>
 			</div>
 			<div class="panel-body">
+				<hr class="colorgraph"></hr>
 				<form role="form" method="post" action="submitreg.php">
 					<div class="form-group" id="emailDiv">
 						<label for="email">Email address*:</label>
@@ -59,8 +60,8 @@
 						<input name="reg_pwordc" type="password" class="form-control" id="pwdc" onblur="validatePwdc()">
 						<span id="pwdcStatus"></span>
 					</div>
-
-					<button type="submit" class="btn btn-default">Submit Registration</button>
+					<hr class="colorgraph"></hr>
+					<button type="submit" class="btn btn-lg btn-success btn-block">Submit Registration</button>
 				</form>	
 			</div>
 		</div>
