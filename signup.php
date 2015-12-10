@@ -1,4 +1,4 @@
-<?php include 'php/header.php'; ?>
+<?php $title = "Sign Up"; include 'php/header.php'; ?>
 
 
 <div class="container">
@@ -36,7 +36,7 @@
 	<div class="col-md-10 col-md-offset-1">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title"><strong>Sign up </strong></h3>
+				<h3 class="panel-title"><strong>Sign up</strong></h3>
 			</div>
 			<div class="panel-body">
 				<hr class="colorgraph"></hr>
@@ -71,16 +71,12 @@
 <script src="js/checkSignUp.js"> </script>
 <script>
 	$(function(){
-
 		$('#datepicker').datepicker({
-
 			defaultDate: '01/01/1977',
 			startDate: '01/01/1900',
 			endDate: '01/01/2010', 
 			autoclose: true,
-
 		});
-
 	});
 </script>
 

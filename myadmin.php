@@ -1,8 +1,6 @@
-<?php
-	include 'php/header.php';
-?>
-<script>
+<?php $title = "Admin Panel"; include 'php/header.php'; ?>
 
+<script>
 function deleteRow(id, button) {
   $.ajax(
   {

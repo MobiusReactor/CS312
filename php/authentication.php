@@ -60,9 +60,7 @@
 					$cookiePwdV = $_POST['password'];
 					setcookie($cookieEmailN, $cookieEmailV, time() + (86400 * 30), "/");
 					setcookie($cookiePwdN, $cookiePwdV, time() + (86400 * 30), "/");
-					
 				}
-				//header("refresh:0.1;url=mquiz.php");
 			} else {
 				/*email/password pair is not found -> send user back to login form*/
 				header("refresh:0.1;url=login.php?error=incorrectAuth");

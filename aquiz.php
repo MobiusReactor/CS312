@@ -1,13 +1,10 @@
-<?php include 'php/header.php'; ?>
+<?php $title = "All Quizzes"; include 'php/header.php'; ?>
 
 <?php 
 	if(!isset($_SESSION["email"])){
-			header("Location: index.php");
+		header("Location: index.php");
 	}
 ?>
-
-
-
 
 <div class="container">
 	<div class="jumbotron">

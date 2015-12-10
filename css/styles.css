@@ -51,6 +51,16 @@ h2.standout-black {
 	text-transform: uppercase;
 	color:black; 
 }
+h2.standout-purple {
+	font-family: 'Raleway',sans-serif; 
+	font-size: 30px; 
+	font-weight: 800; 
+	line-height: 36px; 
+	margin: 0 0 24px; 
+	text-align: center; 
+	text-transform: uppercase;
+	color:#880E4F; 
+}
 p.standout-black { 
 	color: #black; 
 	font-family: 'Raleway',sans-serif; 

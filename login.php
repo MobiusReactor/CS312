@@ -1,9 +1,9 @@
-<?php include 'php/header.php'; ?>
+<?php $title = "Login"; include 'php/header.php'; ?>
 
 
 <div class="container">
 <?php
-	/*Display error message if was not authenticated*/
+	/*Display error message if user was not authenticated*/
 	if(isset($_GET['error'])){
 		if($_GET['error']=="incorrectAuth") {
 			echo "<div class='alert alert-danger'>

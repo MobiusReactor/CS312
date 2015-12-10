@@ -1,4 +1,4 @@
-<?php include 'php/header.php'; ?>
+<?php $title = "Viewing Quiz"; include 'php/header.php'; ?>
 
 <?php
 	

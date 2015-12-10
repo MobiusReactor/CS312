@@ -137,7 +137,7 @@ function clearMsg(container, errorMsg, icon) {
 function setError(container, errorMsg, icon) {
 	container.setAttribute("class", "form-group has-error has-feedback");
 	errorMsg.setAttribute("class", "alert alert-danger");
-	errorMsg.innerHTML = "<strong>Error!</strong>" + errorStr;
+	errorMsg.innerHTML = "<strong>Error!</strong> " + errorStr;
 	icon.setAttribute("class", "glyphicon glyphicon-remove form-control-feedback");				
 }
 
@@ -145,7 +145,7 @@ function setError(container, errorMsg, icon) {
 function setWarning(container, errorMsg, icon) {
 	container.setAttribute("class", "form-group has-warning has-feedback");
 	errorMsg.setAttribute("class", "alert alert-warning");
-	errorMsg.innerHTML = "<strong>Warning!</strong>" + errorStr;
+	errorMsg.innerHTML = "<strong>Warning!</strong> " + errorStr;
 	icon.setAttribute("class", "glyphicon glyphicon-warning-sign form-control-feedback");
 }
 

@@ -1,6 +1,4 @@
-<?php 
-	include 'php/header.php';
-?>
+<?php $title = "Sign Up"; include 'php/header.php'; ?>
 
 
 <div class="container">

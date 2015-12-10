@@ -1,4 +1,4 @@
-<?php include 'php/header.php'; ?>
+<?php $title = "Contact Us"; include 'php/header.php'; ?>
 
 
 <div class="container">

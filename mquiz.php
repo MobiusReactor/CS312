@@ -1,4 +1,4 @@
-<?php include 'php/header.php'; ?>
+<?php $title = "My Quizzes"; include 'php/header.php'; ?>
 
 <?php 
 	if(!isset($_SESSION["email"])){

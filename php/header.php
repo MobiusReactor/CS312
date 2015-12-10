@@ -1,26 +1,20 @@
 <?php
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
-	
-		//echo dirname(__DIR__);
-		
-		
-		$_sname = "devweb2015.cis.strath.ac.uk";
-		$_uname = "isb13142";
-		$_pword = "eiXaim9ee8mi";
-		//$_sname = "localhost";
-		//$_uname = "root";
-		//$_pword = "12345";
-		$link = mysqli_connect($_sname, $_uname, $_pword);
-		mysqli_select_db($link, $_uname) or die(mysql_error());
-		//mysql_select_db("SoEDB") or die(mysql_error());
+
+	$_sname = "devweb2015.cis.strath.ac.uk";
+	$_uname = "isb13142";
+	$_pword = "eiXaim9ee8mi";
+
+	$link = mysqli_connect($_sname, $_uname, $_pword);
+	mysqli_select_db($link, $_uname) or die(mysql_error());
 
 	include "authentication.php";
 ?>
 <!DOCTYPE html>
 <html lang='en'>
-
 	<head>
+		<?php if (isset($title)) echo "<title>$title</title>" ?>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 
@@ -39,7 +33,6 @@
 	</head>
 
 	<body>
-	
 		<nav class="navbar navbar-default" style="margin-bottom: 0;">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -58,22 +51,20 @@
 						
 						<?php
 							if(isset($_SESSION['isLogged'])) {
-								echo "<li><a href='aquiz.php'>All Quizes</a></li>";
-								echo "<li><a href='mquiz.php'>My Quizes</a></li>";
-							} else {
-								echo '<li><a href="contact.php">Contact Us</a></li>';
+								echo "<li><a href='aquiz.php'>All Quizzes</a></li>";
+								echo "<li><a href='mquiz.php'>My Quizzes</a></li>";
 							}
 							
 							//if(isset($_SESSION['admin'])) {
 							//	echo "<li><a href='myadmin.php'>Admin Panel</a></li>";
 							//}
 						?>
-						
+						<li><a href="contact.php">Contact Us</a></li>
 					</ul>
 			
 					<?php
 						if(isset($_SESSION['isLogged'])) {
-							/*user is logged -> display the account menu*/
+							/* User is logged in -> display the account menu */
 							$email = $_SESSION['email'];
 							echo " <div class='dropdown rightDiv'>
   								<button class='btn btn-primary dropdown-toggle' type='button'
@@ -81,17 +72,16 @@
 										$email
 								<span class='caret'></span></button>
 								<ul class='dropdown-menu'>
+									<li><a href='accmanage.php'>Settings</a></li>
 								";
 							if(isset($_SESSION['admin'])) {
-								
 								echo "<li><a href='myadmin.php'>Admin Panel</a></li>";
 							}
 							echo "<li><a href='index.php?log=out'>Logout</a></li>
 								</ul></div>";
 						
 						} else {
-							/*user is not logged -> display
-							  Sign Up/Login links*/						
+							/* User is not logged in -> display Sign Up/Login links */						
 							echo "<ul class='nav navbar-nav navbar-right'>
 								<li><a href='signup.php'>
 									<span class='glyphicon glyphicon-user'></span> Sign Up
@@ -104,5 +94,4 @@
 					?>
 				</div>
 			</div>
-
 		</nav>
