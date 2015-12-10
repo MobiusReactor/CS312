@@ -2,81 +2,85 @@
 
 
 <div class="container">
-<?php
+	<?php
 
 	if(isset($_GET['error'])) {
 		switch($_GET['error']) {
 			case "missing":
-				echo "<div class='alert alert-danger'>
-					<strong>Error!</strong> One or more fields missing data.
-				</div>";
-				break;
+				echo 	"<div class='alert alert-danger'>
+							<strong>Error!</strong> One or more fields missing data.
+						</div>";
+					break;
 
 			case "email":
-				echo "<div class='alert alert-danger'>
-					<strong>Error!</strong> Invalid email.
-				</div>";
+				echo 	"<div class='alert alert-danger'>
+							<strong>Error!</strong> Invalid email.
+						</div>";
 				break;
 			case "taken":
-				echo "<div class='alert alert-danger'>
-					<strong>Error!</strong> Email is already taken, choose another one.
-				</div>";
+				echo 	"<div class='alert alert-danger'>
+							<strong>Error!</strong> Email is already taken, choose another one.
+						</div>";
 				break;
 			case "pwds":
-				echo "<div class='alert alert-danger'>
-					<strong>Error!</strong> Passwords do not match.
-				</div>";
+				echo 	"<div class='alert alert-danger'>
+							<strong>Error!</strong> Passwords do not match.
+						</div>";
 				break;	
 			default:
 		}
 	}
+	?>
 
-?>
-	<div class="jumbotron">
-		<h1>Sign up here!</h1>
-		<script src="js/checkSignUp.js">
+<div class="container" style="margin-top:30px">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><strong>Sign up </strong></h3>
+			</div>
+			<div class="panel-body">
+				<form role="form" method="post" action="submitreg.php">
+					<div class="form-group" id="emailDiv">
+						<label for="email">Email address*:</label>
+						<input name="reg_email" type="email" class="form-control" id="email" onblur="validateEmail()">
+						<span id="emailStatus"></span>
+					</div>
+					<div class="form-group">
+						<label for="dob">Date of Birth:</label>
+						<input type="text" class="form-control" id="datepicker" name="dateOfBirth">
+					</div>
+					<div class="form-group" id="pwdDiv">
+						<label for="pwd">Choose a password*:</label>
+						<input name="reg_pword" type="password" class="form-control" id="pwd" onblur="validatePwd()">
+						<span id="pwdStatus"></span>
+					</div>
+					<div class="form-group" id="pwdcDiv">
+						<label for="pwdc">Confirm your password*:</label>
+						<input name="reg_pwordc" type="password" class="form-control" id="pwdc" onblur="validatePwdc()">
+						<span id="pwdcStatus"></span>
+					</div>
 
-			
-		</script>
-		<form role="form" method="post" action="submitreg.php">
-			<div class="form-group" id="emailDiv">
-				<label for="email">Email address*:</label>
-				<input name="reg_email" type="email" class="form-control" id="email" onblur="validateEmail()">
-				<span id="emailStatus"></span>
+					<button type="submit" class="btn btn-default">Submit Registration</button>
+				</form>	
 			</div>
-			<div class="form-group">
-				<label for="dob">Date of Birth:</label>
-				<input type="text" class="form-control" id="datepicker" name="dateOfBirth">
-			</div>
-			<div class="form-group" id="pwdDiv">
-				<label for="pwd">Choose a password*:</label>
-				<input name="reg_pword" type="password" class="form-control" id="pwd" onblur="validatePwd()">
-				<span id="pwdStatus"></span>
-			</div>
-			<div class="form-group" id="pwdcDiv">
-				<label for="pwdc">Confirm your password*:</label>
-				<input name="reg_pwordc" type="password" class="form-control" id="pwdc" onblur="validatePwdc()">
-				<span id="pwdcStatus"></span>
-			</div>
-
-			<button type="submit" class="btn btn-default">Submit Registration</button>
-		</form>	
+		</div>
 	</div>
 </div>
 
+<script src="js/checkSignUp.js"> </script>
 <script>
-$(function(){
+	$(function(){
 
-$('#datepicker').datepicker({
-    
-	defaultDate: '01/01/1977',
-	startDate: '01/01/1900',
-	endDate: '01/01/2010', 
-	autoclose: true,
+		$('#datepicker').datepicker({
 
-});
+			defaultDate: '01/01/1977',
+			startDate: '01/01/1900',
+			endDate: '01/01/2010', 
+			autoclose: true,
 
-});
+		});
+
+	});
 </script>
 
 <?php include 'php/footer.php'; ?>
