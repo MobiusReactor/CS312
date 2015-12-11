@@ -1,6 +1,8 @@
-<?php $title = "Admin Panel"; include 'php/header.php'; ?>
-
+<?php
+	include 'php/header.php';
+?>
 <script>
+
 function deleteRow(id, button) {
   $.ajax(
   {
@@ -47,7 +49,9 @@ function deleteRow(id, button) {
       {
         $(".quest").show();
       }
+	
     });
+	
   });
   $(document).on('click', '.usr, .qts, .ans, .qs', function () { // <-- changes
     if($(this).attr("class").indexOf("usr") > -1){
@@ -71,6 +75,7 @@ function deleteRow(id, button) {
             if(deleteRow($id, $bt)){
               alert($bt + " successfully deleted");
               $row.remove();
+		location.reload();
             }else {
               alert($bt + " deletion was unsuccessful");
             }
@@ -100,7 +105,7 @@ function deleteRow(id, button) {
 		  <div class="panel panel-default"  align="center">
 			<a href="#" class="link2" style="text-decoration:none;">
 			  <div class="panel-body"  style="background-color:#5C6BC0">
-			    <h1 style="color:white"> Quizes </h1>
+			    <h1 style="color:white">Quizes</h1>
 			    <h2 style="color:white"> <?php echo getCount("QUESTS");?> </h2>
 			  </div>
 			</a>
@@ -111,7 +116,7 @@ function deleteRow(id, button) {
 			<div class="panel panel-default">
 			  <a href="#" class="link3" style="text-decoration:none;">
 			    <div class="panel-body"  style="background-color:#3F51B5" align="center">
-			      <h1 style="color:white"> Answers </h1>
+			      <h1 style="color:white">Answers</h1>
 			      <h2 style="color:white"> <?php echo getCount("ANSWERS");?> </h2>
 			    </div>
 			  </a>
@@ -122,7 +127,7 @@ function deleteRow(id, button) {
 		  <div class="panel panel-default"  align="center">
 			<a href="#" class="link4" style="text-decoration:none;">
 			  <div class="panel-body"  style="background-color:#3949AB">
-			    <h1 style="color:white"> Questions </h1>
+			    <h1 style="color:white">Questions</h1>
 			    <h2 style="color:white"> <?php echo getCount("QUESTIONS");?> </h2>
 			  </div>
 			</a>

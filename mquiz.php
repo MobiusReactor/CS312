@@ -1,12 +1,5 @@
 <?php $title = "My Quizzes"; include 'php/header.php'; ?>
 
-<?php 
-	if(!isset($_SESSION["email"])){
-			header("Location: index.php");
-	}
-?>
-
-
 
 <div class="container">
 	<div class="jumbotron">
@@ -22,37 +15,24 @@
 			
 			echo "<h2>LIST OF YOUR QUESTIONAIRES:</h2>";
 
-			echo "<ul>";
-
-			while($row = mysqli_fetch_array($result)){
-				$result2 = getBasicData(array("questionID"), "QUESTIONS", array("questionnaireID" => $row['questID']));
+			?>
 			
-				$question_idents = array();
-
-				while($row2 = mysqli_fetch_array($result2)) {
-					$question_idents[] = $row2['questionID'];
-				}
-
-				$question_idents = json_encode($question_idents);
-
-				echo "<li><a href='myquizanalysis.php?quizID=".$row['questID']."'";
-				echo " onlick='showQuizStats(".$question_idents.")'>" . $row["questName"] . "</a></li>";
-			}
-
-			echo "</ul>";
-
-		?>
+			<div class="row">
+			<?php while($row = mysqli_fetch_array($result)) : ?>
+				<div class="col-xs-4">
+				<div class="panel panel-default" align="center">
+				<a href="myquizanalysis.php?quizID= <?php echo $row["questID"];?>" style=" text-decoration: none;">
+				<h2> <?php echo $row["questName"]; ?></h2>
+				</a>
+				</div>	
+				</div>	
+			<?php endwhile; ?>
+			</div>
+		
 		
 		<form action="quizcreator.php">
 			<button type="submit" class="btn btn-default">Create New Quiz</button>
 		</form>
-
-	<script>
-		function showQuizStats(quizID){
-			var data = JSON.parse(quizID);
-			alert(data);
-		}
-	</script>
 
 	</div>
 </div>

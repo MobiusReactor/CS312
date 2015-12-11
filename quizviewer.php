@@ -80,6 +80,7 @@
 					echo '<br>';
 					$index = 0;
 					foreach($opt as $v){
+						$v = str_replace("\'", "'", $v);
 						$question_idents [] = $row["questionID"];
 						$index = $index + 1;
 						//inlineCheckOptions

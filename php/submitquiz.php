@@ -40,6 +40,8 @@
 		}
 		$data = $q[1];
 		$options = $q[2];
+
+		/*Here the single-quotes are replaced combined with slashes, so there won't be any issues with inserting*/
 		$data = str_replace("'", "\'", $data);
 		$options = str_replace("'", "\'", $options);
 		

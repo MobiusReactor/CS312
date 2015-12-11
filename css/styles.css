@@ -11,6 +11,12 @@ div.more-padding{
 div.center{
 	text-align: center;
 }
+
+button.btn, .alert {
+	margin-top: 5px;
+	margin-bottom: 5px; 
+}
+
 h1.standout-white{
 	font-family: 'Raleway',sans-serif;
 	font-size: 62px;
@@ -117,4 +123,25 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 
+}
+
+.footer {
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  height: 150px;
+  clear:both;
+  padding-top:20px;
+} 
+
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom:150px; /* this needs to be bigger than footer height*/
 }

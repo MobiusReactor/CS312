@@ -16,18 +16,22 @@
 			$query = "SELECT * FROM QUESTS"; 
 
 			$result = mysqli_query($link, $query) or die(mysql_error());
+		 ?>
 				
-			echo "<h2>LIST OF QUESTIONAIRES:</h2>";
+			<h2>LIST OF QUESTIONAIRES:</h2>
 
-			echo "<ul>";
-
-			while($row = mysqli_fetch_array($result)){
-				echo "<li><a href='quizviewer.php?quizID=" . $row["questID"] . "'>" . $row["questName"] . "</a></li>";
-			}
-
-			echo "</ul>";
-
-		?>
+			<div class="row">
+			<?php while($row = mysqli_fetch_array($result)) : ?>
+				<div class="col-xs-4">
+				<div class="panel panel-default" align="center">
+				<a href="quizviewer.php?quizID= <?php echo $row["questID"];?>" style=" text-decoration: none;">
+				<h2> <?php echo $row["questName"]; ?></h2>
+				</a>
+				</div>	
+				</div>	
+			<?php endwhile; ?>
+			</div>
+		
 	</div>
 </div>
 
