@@ -2,7 +2,6 @@
 	include 'php/header.php';
 ?>
 <script>
-
 function deleteRow(id, button) {
   $.ajax(
   {
@@ -244,4 +243,4 @@ function deleteRow(id, button) {
 <?php else : ?>
 	<p>Error, access denied</p>
 <?php endif; ?>
-
+<?php include 'php/footer.php'; ?>

@@ -22,8 +22,15 @@
 		<link rel='stylesheet' href='css/bootstrap.min.css'>
 		<link rel='stylesheet' href='css/datepicker.css'>
 		<link rel='stylesheet' href='css/styles.css'>
-
+		<!-- Latest compiled JQuery -->
+		<script src='js/jquery-1.11.3.min.js'></script>
+		
+		<!-- Latest compiled JavaScript -->
+		<script src='js/bootstrap.min.js'></script>
+		<script src='js/bootstrap-datepicker.js'></script>
+		<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
+
 		</head>
 
 	<body>
