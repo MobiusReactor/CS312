@@ -117,12 +117,13 @@ $qAuthor = mysqli_fetch_assoc($result)['email'];
 
 						//output questions
 						echo "<p>$row[1]</p>";
+						$qID = $row[0];
 						$options = explode(";", $row[2]);
 						$toPass = array();
 						if(($row[2] != "") || ($row[2] != Null)) {
 							//if multiple choice or radio -> gather statistics of answers
 							foreach($options as $value) {
-								$occ = getBasicData(array("COUNT(*)"), "ANSWERS", array("answer"=>$value));
+								$occ = getBasicData(array("COUNT(*)"), "ANSWERS", array("answer"=>$value, "questionID"=>$qID));
 
 								$occ = mysqli_fetch_array($occ);
 								$value = substr($value, 0, 20);
