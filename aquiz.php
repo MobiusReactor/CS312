@@ -22,7 +22,7 @@
 			<?php while($row = mysqli_fetch_array($result)) : ?>
 				<div class="col-xs-4">
 				<div class="panel panel-default" align="center">
-				<a href="quizviewer.php?quizID= <?php echo $row["questID"];?>" style=" text-decoration: none;">
+				<a href="quizviewer.php?quizID=<?php echo $row["questID"];?>" style=" text-decoration: none;">
 				<h2> <?php echo $row["questName"]; ?></h2>
 				</a>
 				</div>	
