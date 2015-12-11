@@ -46,6 +46,12 @@
 							Your password has been changed!
 						</div>";
 					break;
+					
+			case "newreg":
+				echo 	"<div class='alert alert-success'>
+							Registered successfully!
+						</div>";
+					break;
 			default:
 		}
 	}

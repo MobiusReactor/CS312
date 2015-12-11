@@ -60,19 +60,8 @@
 			
 			
 			mysqli_query($link, $query) or die(mysql_error()); 
-	
-			
-			$query = "SELECT * FROM USERS"; 
-			$result = mysqli_query($link, $query) or die(mysql_error());
-				
-			echo "<h2>LIST OF USERS:</h2>";
-			echo "<ul>";
-			while($row = mysqli_fetch_array($result)){
-				echo "<li>" . $row["email"] . "</li>";
-			}
-			echo "</ul>";
-			echo "Account successfully registered";
-			//header("refresh:2;url=index.php");
+
+			header("Location: login.php?msg=newreg");
 		?>
 	</div>
 </div>
