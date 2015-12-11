@@ -7,9 +7,35 @@ $toPass = array();
 ?>
 
 <?php
-	if(!isset($_SESSION["email"])){
-		header("Location: index.php");
-	}
+
+if(!isset($_GET["quizID"]) || !isset($_SESSION["email"])){
+	header("Location: index.php");
+}
+
+$qID = (integer)$_GET["quizID"];
+
+$query = "SELECT COUNT(*) FROM QUESTS q WHERE q.questID = " . $qID . ";";
+
+$result = mysqli_query($link, $query) or die(mysql_error());
+
+
+
+if(mysqli_num_rows($result) == 0){
+	header("Location: index.php");
+}
+
+$query = "SELECT questName FROM QUESTS q WHERE q.questID = " . $qID . ";";
+
+$result = mysqli_query($link, $query) or die(mysql_error());
+
+$qTitle = mysqli_fetch_assoc($result)['questName'];
+
+$query = "SELECT u.email FROM QUESTS q, USERS u WHERE q.questID = " . $qID . " AND q.createdBy = u.userID;";
+
+$result = mysqli_query($link, $query) or die(mysql_error());
+
+$qAuthor = mysqli_fetch_assoc($result)['email'];
+
 ?>
 
 <script>
@@ -54,6 +80,11 @@ $toPass = array();
 
 <div class="container">
 	<div class="jumbotron">
+		<div class="row">
+			<h1>Analysis of quiz '<?php echo $qTitle;?>'</h1>
+			<p>A quiz created by <?php echo $qAuthor;?></p>
+		</div>
+
 		<div class="row">
 			<?php
 
