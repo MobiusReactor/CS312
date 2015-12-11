@@ -25,11 +25,12 @@
 		var ni = document.getElementById('modalOptions'+index);
 		var numberOfElements = ni.childNodes.length;
 		var newOpt = document.createElement('div');
+		newOpt.setAttribute('id',  'optionAnswer'+numberOfElements);
 		newOpt.innerHTML = '<div class="form-group">' +
 					'<label for="question">Option ' +(numberOfElements+1)+ '</label>' +
 					'<div class="row">' +
 						'<div class="col-md-11">' +
-							'<input type="text" class="form-control optionAnswer'+index+'">' +
+							'<input type="text" class="form-control answerContent'+index+'">' +
 					'</div><div class="col-md-1">' +
 					'<button type="button" class="btn btn-xs btn-danger pull-right" ' +
 						'onclick="deleteOption('+index+','+numberOfElements+')">Delete</button></div></div>' +
@@ -40,15 +41,14 @@
 	/*The function which deletes specified option in specified modal*/
 	function deleteOption(modalIndex, optionIndex) {
 		var ni = document.getElementById('modalOptions'+modalIndex);
-		ni.removeChild(ni.childNodes[optionIndex]);
+		ni.removeChild(document.getElementById('optionAnswer'+optionIndex));
 	}
 
 	/*The function which sends specified modal options to a hidden field of form with same index*/
 	function sendOptions(index) {
 		/*Get modal fields*/
-		var answers = document.getElementsByClassName('optionAnswer'+index);
+		var answers = document.getElementsByClassName('form-control answerContent'+index);
 		var ni = document.getElementById("optionList");
-
 		/*Get hidden field*/
 		var hidden = ni.lastChild.firstChild.lastChild;
 
@@ -58,8 +58,8 @@
 			str += answers[i].value + ";";
 		}
 		str = str.substring(0, str.length - 1);
-		
 		/*Send values to hidden*/
+		
 		hidden.setAttribute('value', str);
 	}
 

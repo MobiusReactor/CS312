@@ -55,23 +55,23 @@
 			$i = 0;
 			while($row = mysqli_fetch_array($result)){
 
-				echo '<div class="form-group" name="atsakymas" type="title">';
+				echo '<div class="form-group" type="title">';
 				echo '	<div>';
 				echo '		<label for="question">' . $row["question"] . '</label>';
 				
 				if($row["questionType"] == "text"){
 					$question_idents [] = $row["questionID"];
-					echo '		<input type="text" class="form-control" id="question" name="answer">';
+					echo '		<input type="text" class="form-control" id="question" name="answer'.$i.'">';
 				} else if($row["questionType"] == "radio"){
 					$opt = explode(";", $row["options"]);
 					echo '<br>';
 					$index = 0;
 					foreach($opt as $v){
-						$index = $index + 1;
+						$i = $i + 1;
 						$question_idents [] = $row["questionID"];
 						echo '<label class="radio-inline">';
 						//inlineRadioOptions
-						echo '	<input type="radio" name="answer" id="inlineRadio" value="' . $v . '"> ' . $v;
+						echo '	<input type="radio" name="answer'.$i.'" id="inlineRadio" value="' . $v . '"> ' . $v;
 						echo '</label>';
 					}
 
@@ -82,17 +82,17 @@
 					foreach($opt as $v){
 						$v = str_replace("\'", "'", $v);
 						$question_idents [] = $row["questionID"];
-						$index = $index + 1;
+						$i = $i + 1;
 						//inlineCheckOptions
 						echo '<label class="checkbox-inline">';
-						echo '	<input type="checkbox" name="answer" id="inlineCheckbox" value="' . $v . '"> ' . $v;
+						echo '	<input type="checkbox" name="answer'.$i.'" id="inlineCheckbox" value="' . $v . '"> ' . $v;
 						echo '</label>';
 						
 					}
 				}
 				
 				echo '	</div>';
-				echo '</div><hr>';
+				echo '</div><hr class="colorgraph">';
 			}
 
 		?>
@@ -110,7 +110,18 @@
 	var qArray = new Array();
 	function validateEntry(author){
 		var ids = jQuery.parseJSON('<?php echo json_encode($question_idents) ?>');
-		var aList = document.getElementsByName('answer');
+		var inputs = document.getElementsByTagName("input");
+		var aList = new Array();
+		for (x = 0 ; x < inputs.length ; x++){
+    			myname = inputs[x].getAttribute("name");
+    			if(myname.indexOf("answer")==0){
+      				aList.push(inputs[x]);
+			}
+    		}
+
+		
+		
+		//var aList = document.getElementsByName('answer');
 		var valid = true;
 		
 		for(var i = 0; i < aList.length; i++){
@@ -137,8 +148,8 @@
 					valid = false;
 					break;
 				} else {
+					
 					if(cQuest.checked){
-						alert(ids[i]);
 						qArray.push([type, ids[i], qName]);
 					}
 				}
@@ -159,7 +170,7 @@
 				url:'php/submitanswer.php',
 				data:{ answers:sArray },
 				success: function(response){
-					alert(response);
+
 				},
 				async: false
 			});

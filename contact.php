@@ -4,6 +4,7 @@
 <div class="container">
 	<div class="jumbotron">
 		<h1>Contact Us!</h1>
+		<hr class="colorgraph">
 		<p>Here is how you can talk to us.</p>
 		<form role="form" id="contactForm" onsubmit="submitForm()">
 			<div class="row">

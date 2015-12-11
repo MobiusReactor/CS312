@@ -17,7 +17,7 @@
 		 ?>
 				
 			<h2>LIST OF QUESTIONAIRES:</h2>
-
+			<hr class="colorgraph">
 			<div class="row">
 			<?php while($row = mysqli_fetch_array($result)) : ?>
 				<div class="col-xs-4">
@@ -25,7 +25,8 @@
 				<a href="quizviewer.php?quizID=<?php echo $row["questID"];?>" style=" text-decoration: none;">
 				<h2> <?php echo $row["questName"]; ?></h2>
 				</a>
-				</div>	
+				</div>
+				<hr class="colorgraph">	
 				</div>	
 			<?php endwhile; ?>
 			</div>
