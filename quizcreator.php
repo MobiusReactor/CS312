@@ -1,5 +1,11 @@
 <?php $title = "Create Quiz"; include 'php/header.php'; ?>
 
+<?php
+	if(!isset($_SESSION["email"])){
+		header("Location: index.php");
+	}
+?>
+
 <script>
 	
 	var qArray = new Array();
@@ -78,7 +84,7 @@
 			
 			if(type == "title"){
 				var qName = uSpec[0].value;
-				if(qName == ""){
+				if(qName.toString() == ""){
 					valid = false;
 					break;
 				} else {
@@ -86,7 +92,7 @@
 				}
 			} else if(type == "text"){
 				var qName = uSpec[0].value;
-				if(qName == ""){
+				if(qName.toString() == ""){
 					valid = false;
 					break;
 				} else {
@@ -96,7 +102,7 @@
 				var qName = uSpec[0].value;
 				var qOpt = uSpec[1].value;
 				
-				if(qName == "" || qOpt == ""){
+				if(qName.toString() == "" || qOpt.toString() == ""){
 					valid = false;
 					break;
 				} else {

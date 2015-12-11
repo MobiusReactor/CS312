@@ -5,6 +5,13 @@ $title = "Quiz Results";
 include 'php/header.php';
 $toPass = array();
 ?>
+
+<?php
+	if(!isset($_SESSION["email"])){
+		header("Location: index.php");
+	}
+?>
+
 <script>
 /**
  * The function below draws a chart by using already created canvas with id (index)
