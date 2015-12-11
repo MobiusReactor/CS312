@@ -5,10 +5,10 @@
   $message = $_POST["message"];
   $timestp = date("F j, Y, g:i a");
 
-  $EmailTo = "martinparry94@googlemail.com";
+  $EmailTo = "sjohnst07@gmail.com";
   $Subject = "Quiz System Message";
 
-  $Body .= "Name: \t";
+  $Body = "Name: \t";
   $Body .= $name;
   $Body .= "\n";
 
@@ -26,9 +26,11 @@
   $success = mail($EmailTo, $Subject, $Body);
 
   /*report if successful or not*/
+  
   if($success) {
     echo "success";
+    header("Location: ../contact.php?msg=success");
   } else {
-    echo "invalid";
+    header("Location: ../contact.php?msg=success");
   }
 ?>

@@ -42,14 +42,14 @@
 				// Send email containing token to user
 			
 				$subject = "Password reset link";
-				$uri = "https://devweb2015.cis.strath.ac.uk/" . dirname($_SERVER['PHP_SELF']) . "/accmanage.php?token=$token";
+				$uri = "https://devweb2015.cis.strath.ac.uk" . dirname($_SERVER['PHP_SELF']) . "/accmanage.php?token=$token";
 				$message = "
 				<html>
 				<head>
 				<title>Password reset link for CS312 Quiz System</title>
 				</head>
 				<body>
-				<p>Click on the link belowto reset your password: </br></p>
+				<p>Click on the link below to reset your password: </br></p>
 				<a href='$uri'>$uri</a>
 				<p>For security, this link will expire in six hours.</p>
 				</body>
