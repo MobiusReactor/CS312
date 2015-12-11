@@ -17,16 +17,19 @@
 							<strong>Error!</strong> Invalid email.
 						</div>";
 				break;
+				
 			case "taken":
 				echo 	"<div class='alert alert-danger'>
 							<strong>Error!</strong> Email is already taken, choose another one.
 						</div>";
 				break;
+				
 			case "pwds":
 				echo 	"<div class='alert alert-danger'>
 							<strong>Error!</strong> Passwords do not match.
 						</div>";
-				break;	
+				break;
+				
 			case "captcha":
 				echo 	"<div class='alert alert-danger'>
 							<strong>Error!</strong> Captcha verification failed.
