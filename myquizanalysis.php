@@ -90,19 +90,37 @@ $qAuthor = mysqli_fetch_assoc($result)['email'];
 
 			if(isset($_GET['quizID'])) {
 				/*with quizID, fetch all the questions from DB for that quiz*/
-				$result = getBasicData(
-					array("questionID", "question", "options"),
-					"QUESTIONS",
-					array("questionnaireID" => $_GET['quizID']));
+				/*
+                                $query = "SELECT q.question, a.answer, COUNT(a.answer) FROM ANSWERS a, QUESTIONS q WHERE a.questionID = q.questionID AND q.questionnaireID = " . $qID . " GROUP BY a.answer;";
+
+                                $result = mysqli_query($link, $query) or die(mysql_error());
+                                 */
+                                $result = getBasicData(
+                                    array("questionID", "question", "options"),
+                                    "QUESTIONS",
+                                    array("questionnaireID" => $_GET['quizID']));
+
+
+
 				if(mysqli_num_rows($result) > 0) {
 					$i = 0;
 					while($row = mysqli_fetch_array($result)){
-						/*output questions*/
+						/*
+						echo "<p>Question Name: $row[0]</p>";
+
+						echo "Answer: " . $row[1] . "<br>";
+
+						echo "Number of people who chose this answer: " . $row[2] . "<br>";
+
+						echo "<br>";
+*/
+
+						//output questions
 						echo "<p>$row[1]</p>";
 						$options = explode(";", $row[2]);
 						$toPass = array();
 						if(($row[2] != "") || ($row[2] != Null)) {
-							/*if multiple choice or radio -> gather statistics of answers*/
+							//if multiple choice or radio -> gather statistics of answers
 							foreach($options as $value) {
 								$occ = getBasicData(array("COUNT(*)"), "ANSWERS", array("answer"=>$value));
 
@@ -112,16 +130,18 @@ $qAuthor = mysqli_fetch_assoc($result)['email'];
 
 							}
 
-							/*encode statistics and create chart to display it*/
+							//encode statistics and create chart to display it
 							$encoded = json_encode($toPass);
 							$encoded = str_replace("\'", "'", $encoded);
 							echo '<canvas id="myChart'.$i.'" width="300" height="300"></canvas>';
 							echo '<script>drawChart('.$i.', \''.$encoded.'\')</script>';
 							$i++;
+
 						} else {
-							/*if simple text field -> no statistics*/
+							//if simple text field -> no statistics
 							echo "<h7>No statistics</h7>";
 						}
+
 					}  
 				}
 			}
